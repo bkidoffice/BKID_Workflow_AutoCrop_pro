@@ -86,3 +86,12 @@ var refreshedBranding = XDocument.Parse(branded);
 Assert(refreshedBranding.Descendants("tool_bar_group").First().Element("text")!.Value == "BKID_AutoCrop_SixView", "Saved group name not migrated.");
 Assert(XNode.DeepEquals(refreshedBranding.Root!.Element("bitmaps"), XDocument.Parse(template).Root!.Element("bitmaps")), "New white/black artwork not migrated.");
 Console.WriteLine("PASS: owned saved toolbar receives new name/artwork after update.");
+
+var cachedIcons = XDocument.Parse(template);
+foreach (var macro in cachedIcons.Descendants("macro_item")) macro.SetAttributeValue("bitmap_id", "old-cached-icon");
+cachedIcons.Descendants("tool_bar").First().SetAttributeValue("bitmap_id", "old-cached-icon");
+var migratedIcons = XDocument.Parse(ToolbarBindings.Patch(cachedIcons.ToString(), template)!);
+string freshIcon = XDocument.Parse(template).Descendants("macro_item").First().Attribute("bitmap_id")!.Value;
+Assert(migratedIcons.Descendants("macro_item").All(m => (string)m.Attribute("bitmap_id")! == freshIcon), "Cached button icon IDs were not migrated.");
+Assert((string)migratedIcons.Descendants("tool_bar").First().Attribute("bitmap_id")! == freshIcon, "Cached toolbar icon was not migrated.");
+Console.WriteLine("PASS: saved left/right button and toolbar icon references migrate to fresh white-fill artwork identity.");

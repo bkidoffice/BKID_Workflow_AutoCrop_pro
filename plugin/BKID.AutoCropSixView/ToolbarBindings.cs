@@ -112,7 +112,17 @@ namespace BKID.AutoCropSixView
                     actual.ReplaceWith(new XElement(expected));
                     changed = true;
                 }
-                else changed = UpdateDescriptions(actual, expected) || changed;
+                else
+                {
+                    changed = UpdateDescriptions(actual, expected) || changed;
+                    if (string.Equals((string)document.Root.Attribute("guid"),
+                                      (string)source.Root.Attribute("guid"), StringComparison.OrdinalIgnoreCase) &&
+                        (string)actual.Attribute("bitmap_id") != (string)expected.Attribute("bitmap_id"))
+                    {
+                        actual.SetAttributeValue("bitmap_id", (string)expected.Attribute("bitmap_id"));
+                        changed = true;
+                    }
+                }
             }
             // Refresh our own saved collection's name and artwork after an update.
             // External collections with copied buttons keep their own bitmaps/layout.
@@ -125,6 +135,12 @@ namespace BKID.AutoCropSixView
                     string id = (string)expected.Attribute("guid");
                     var actual = document.Descendants(expected.Name).FirstOrDefault(e =>
                         string.Equals((string)e.Attribute("guid"), id, StringComparison.OrdinalIgnoreCase));
+                    if (actual != null && expected.Attribute("bitmap_id") != null &&
+                        (string)actual.Attribute("bitmap_id") != (string)expected.Attribute("bitmap_id"))
+                    {
+                        actual.SetAttributeValue("bitmap_id", (string)expected.Attribute("bitmap_id"));
+                        changed = true;
+                    }
                     var caption = expected.Element("text");
                     if (actual != null && caption != null && !XNode.DeepEquals(actual.Element("text"), caption))
                     {

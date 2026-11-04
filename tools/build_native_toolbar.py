@@ -36,7 +36,7 @@ def build():
                  bar_id='59395', mru_width='100', point_pos='150,150', float_point='150,150',
                  rect_mru_dock_pos='0,0,100,70', dock_location_u='0', dock_location='top', float_size='100,70')
     bars = E.SubElement(r, 'tool_bars')
-    bar = E.SubElement(bars, 'tool_bar', guid=guid('toolbar'), bitmap_id=guid('icon'), item_display_style='control_only')
+    bar = E.SubElement(bars, 'tool_bar', guid=guid('toolbar'), bitmap_id=guid('icon-white-fill-black-outline-v1'), item_display_style='control_only')
     label(bar, 'text', 'BKID_AutoCrop_SixView')
     button = E.SubElement(bar, 'tool_bar_item', guid=guid('button'))
     label(button, 'text', 'BKID_AutoCrop_SixView')
@@ -46,7 +46,7 @@ def build():
     for key, command, caption, tooltip in [
             ('capture-hover-v2', 'BKIDAutoCropSixViewCapture', 'BKID_AutoCrop_SixView', '6뷰 자동 크롭·PNG 저장 (1배)'),
             ('resolution-hover-v2', 'BKIDAutoCropSixViewResolution', 'BKID_AutoCrop_SixView 해상도 선택', '6뷰 해상도 선택 (×2·×3·×4)')]:
-        macro = E.SubElement(macros, 'macro_item', guid=guid(key), bitmap_id=guid('icon'))
+        macro = E.SubElement(macros, 'macro_item', guid=guid(key), bitmap_id=guid('icon-white-fill-black-outline-v1'))
         for tag, value in [('text', caption),
                            ('tooltip', tooltip),
                            ('help_text', tooltip),
@@ -56,7 +56,7 @@ def build():
     bitmaps = E.SubElement(r, 'bitmaps')
     for name, size in [('small', 16), ('normal', 24), ('large', 32)]:
         bitmap = E.SubElement(bitmaps, name + '_bitmap', item_width=str(size), item_height=str(size))
-        E.SubElement(bitmap, 'bitmap_item', guid=guid('icon'), index='0')
+        E.SubElement(bitmap, 'bitmap_item', guid=guid('icon-white-fill-black-outline-v1'), index='0')
         E.SubElement(bitmap, 'bitmap').text = base64.b64encode((ROOT / 'BKID_AutoCrop_SixView/assets' / ('icon_%s.png' % size)).read_bytes()).decode('ascii')
     E.SubElement(r, 'scripts')
     E.indent(r)
