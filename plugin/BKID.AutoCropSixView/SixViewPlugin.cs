@@ -13,7 +13,7 @@ namespace BKID.AutoCropSixView
     [Guid("EBA693A2-8ACF-5DC1-9A01-FC9CCB4D3DE0")]
     public sealed class SixViewPlugin : PlugIn
     {
-        private const string BindingRevision = "six-view-3.1.1";
+        private const string BindingRevision = "six-view-3.1.2";
         private const string BindingRevisionKey = "ToolbarBindingRevision";
         private const string ToolbarInitializedKey = "NativeToolbarInitialized";
         private const string CaptureOutputFolderKey = "CaptureOutputFolder";
@@ -134,7 +134,7 @@ namespace BKID.AutoCropSixView
         {
             if (scale < 1 || scale > 4) throw new ArgumentOutOfRangeException("scale");
             var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                      "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.1");
+                                      "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.2");
             Directory.CreateDirectory(folder);
             var target = Path.Combine(folder, "BKID_AutoCrop_SixView.py");
             using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream("BKID.AutoCropSixView.Capture.py"))

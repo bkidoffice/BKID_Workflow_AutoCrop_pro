@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""BKID_AutoCrop_SixView 3.1.1 - Windows Rhino 6 and 8, IronPython 2.7.
+"""BKID_AutoCrop_SixView 3.1.2 - Windows Rhino 6 and 8, IronPython 2.7.
 Run with _RunPythonScript. No third-party Python packages required.
 """
 import math
@@ -22,7 +22,7 @@ def initialize_runtime():
     import Rhino
     if System.Environment.OSVersion.Platform != System.PlatformID.Win32NT:
         raise RuntimeError(u"이 버전은 Windows 전용입니다.")
-    Rhino.RhinoApp.WriteLine("BKID_AutoCrop_SixView 3.1.1 | Rhino {0} | IronPython {1}".format(
+    Rhino.RhinoApp.WriteLine("BKID_AutoCrop_SixView 3.1.2 | Rhino {0} | IronPython {1}".format(
         Rhino.RhinoApp.Version, sys.version.split()[0]))
 
 

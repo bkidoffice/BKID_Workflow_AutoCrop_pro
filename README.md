@@ -1,13 +1,13 @@
-# BKID_AutoCrop_SixView — 3.1.1
+# BKID_AutoCrop_SixView — 3.1.2
 
 Windows Rhino 6 / 8용 플러그인. 기존 방식의 툴바·파란색 프레임·EXE → Rhino Installer 설치 흐름을 유지하고 6개 정투상을 투명 PNG로 출력합니다.
 
-[설치 EXE 다운로드](https://github.com/bkidoffice/BKID_Workflow_AutoCrop_pro/raw/refs/heads/main/installers/BKID_AutoCrop_SixView_Setup_3.1.1.exe)
+[설치 EXE 다운로드](https://github.com/bkidoffice/BKID_Workflow_AutoCrop_pro/raw/refs/heads/main/installers/BKID_AutoCrop_SixView_Setup_3.1.2.exe)
 
 ## 설치
 
 1. Rhino를 모두 종료합니다.
-2. `installers/BKID_AutoCrop_SixView_Setup_3.1.1.exe`를 실행합니다.
+2. `installers/BKID_AutoCrop_SixView_Setup_3.1.2.exe`를 실행합니다.
 3. Rhino Installer에서 현재 사용자 설치를 완료합니다. 기존 AutoCrop을 제거할 필요가 없습니다.
 4. Rhino를 시작합니다. 툴바가 닫혀 있으면 `BKIDAutoCropSixView`을 실행합니다.
 
@@ -15,7 +15,7 @@ Windows Rhino 6 / 8용 플러그인. 기존 방식의 툴바·파란색 프레�
 
 툴바 이름은 **BKID_AutoCrop_SixView**, 아이콘은 기존 파란색 크롭 프레임 안에 흰색 채움·검정 테두리 사각형 3개를 배치한 삼면도입니다. 명령어는 `BKIDAutoCropSixView`, `BKIDAutoCropSixViewCapture`, `BKIDAutoCropSixViewResolution`, `BKIDAutoCropSixViewFolder`입니다. 기본 저장 폴더는 바탕화면 `BKID_AutoCrop_SixView_Captures`입니다.
 
-이전에 배포한 AutoCrop 3.0.0은 교체 방식이므로 사용하지 마세요. 3.0.0이 이미 원래 AutoCrop을 교체했다면 원본 저장소의 AutoCrop 2.5.3 설치기로 원래 기능을 복구하고, 이 BKID_AutoCrop_SixView 3.1.1을 추가 설치하세요. BKID_AutoCrop_SixView 설치기는 AutoCrop 3.0.0도 자동 삭제하지 않습니다.
+이전에 배포한 AutoCrop 3.0.0은 교체 방식이므로 사용하지 마세요. 3.0.0이 이미 원래 AutoCrop을 교체했다면 원본 저장소의 AutoCrop 2.5.3 설치기로 원래 기능을 복구하고, 이 BKID_AutoCrop_SixView 3.1.2을 추가 설치하세요. BKID_AutoCrop_SixView 설치기는 AutoCrop 3.0.0도 자동 삭제하지 않습니다.
 
 설치 마법사는 원래 AutoCrop의 이미지·배치·배경색을 사용하며, 제품명은 BKID_AutoCrop_SixView로 표시합니다. 기존 SixView 3.1.0에서 업데이트하면 저장된 툴바의 이름과 아이콘도 갱신합니다.
 

@@ -36,6 +36,19 @@ class CoexistenceTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(artwork.read_bytes()).hexdigest(),
                          'de7d90e80ff418fc02d8cfec794faadedd992d558fa79c9c2db9a8cd4fc4cfc8')
 
+    def test_frame_uses_original_autocrop_blue_in_vector_and_raster(self):
+        from collections import Counter
+        from PIL import Image
+        source = E.parse(ROOT / 'BKID_AutoCrop_SixView/assets/BKID_AutoCrop_SixView_Icon.svg').getroot()
+        ns = '{http://www.w3.org/2000/svg}'
+        self.assertEqual(source.find(ns+'g').get('fill'), '#0645F5')
+        for name in ('icon_master.png', 'icon_64.png'):
+            with Image.open(ROOT / 'BKID_AutoCrop_SixView/assets' / name) as im:
+                colors = Counter(im.convert('RGBA').getdata())
+                blue = {c: n for c,n in colors.items() if c[2] > 200 and c[0] < 40 and c[1] < 110 and c[3] == 255}
+                self.assertTrue(blue, 'Icon must have opaque blue frame pixels')
+                self.assertEqual(max(blue, key=blue.get), (6, 69, 245, 255))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -10,8 +10,8 @@ using var pe = new PEReader(input);
 if (!pe.HasMetadata) throw new Exception("The RHP is not a compiled .NET assembly.");
 var reader = pe.GetMetadataReader();
 var assembly = reader.GetAssemblyDefinition();
-if (reader.GetString(assembly.Name) != (setup ? "BKID_AutoCrop_SixView_Setup_3.1.1" : "BKID.AutoCropSixView")) throw new Exception("Wrong assembly identity.");
-if (assembly.Version != new Version(3, 1, 1, 0)) throw new Exception("Wrong assembly version.");
+if (reader.GetString(assembly.Name) != (setup ? "BKID_AutoCrop_SixView_Setup_3.1.2" : "BKID.AutoCropSixView")) throw new Exception("Wrong assembly identity.");
+if (assembly.Version != new Version(3, 1, 2, 0)) throw new Exception("Wrong assembly version.");
 bool validGuid = false;
 foreach (var handle in assembly.GetCustomAttributes())
 {
