@@ -1,21 +1,27 @@
-# BKID AutoCrop 6 Views — 3.0.0
+# AutoCrop_SixView — 3.1.0
 
-Windows Rhino 6 / 8용 플러그인. 기존 BKID 툴바·로고·EXE → Rhino Installer 설치 흐름을 유지하고 6개 정투상을 투명 PNG로 출력합니다.
+Windows Rhino 6 / 8용 플러그인. 기존 방식의 툴바·파란색 프레임·EXE → Rhino Installer 설치 흐름을 유지하고 6개 정투상을 투명 PNG로 출력합니다.
+
+[설치 EXE 다운로드](https://github.com/bkidoffice/BKID_Workflow_AutoCrop_pro/raw/refs/heads/main/installers/AutoCrop_SixView_Setup_3.1.0.exe)
 
 ## 설치
 
 1. Rhino를 모두 종료합니다.
-2. `installers/BKID_AutoCrop_Setup_3.0.0.exe`를 실행합니다.
-3. 기존 설치 교체에 동의하고 Rhino Installer에서 현재 사용자 설치를 완료합니다.
-4. Rhino를 시작합니다. 툴바가 닫혀 있으면 `BKIDAutoCrop`을 실행합니다.
+2. `installers/AutoCrop_SixView_Setup_3.1.0.exe`를 실행합니다.
+3. Rhino Installer에서 현재 사용자 설치를 완료합니다. 기존 AutoCrop을 제거할 필요가 없습니다.
+4. Rhino를 시작합니다. 툴바가 닫혀 있으면 `BKIDAutoCropSixView`을 실행합니다.
 
-기존 AutoCrop과 같은 플러그인 ID를 쓰는 **교체 버전**입니다. 나란히 설치되지 않습니다. 기존 설치기의 삭제 후 재설치 방식을 유지하므로 새 설치가 취소되거나 실패해도 이전 버전은 자동 복원되지 않습니다. 모델·저장한 PNG는 삭제하지 않습니다. RHI 직접 설치도 가능합니다.
+기존 **BKID AutoCrop과 나란히 설치되는 독립 플러그인**입니다. 별도 플러그인 ID·명령어·툴바·설정·실행 경로를 사용하며 AutoCrop의 파일·레지스트리·버튼·별칭을 삭제하거나 변경하지 않습니다. SixView가 이미 설치된 경우에는 SixView만 재설치합니다. 재설치가 취소되거나 실패해도 이전 AutoCrop_SixView 버전은 자동 복원되지 않습니다. RHI 직접 설치도 가능합니다.
+
+툴바 이름은 **AutoCrop_SixView**, 아이콘은 기존 파란색 크롭 프레임 안에 검은 네모 3개를 배치한 삼면도입니다. 명령어는 `BKIDAutoCropSixView`, `BKIDAutoCropSixViewCapture`, `BKIDAutoCropSixViewResolution`, `BKIDAutoCropSixViewFolder`입니다. 기본 저장 폴더는 바탕화면 `AutoCrop_SixView_Captures`입니다.
+
+이전에 배포한 AutoCrop 3.0.0은 교체 방식이므로 사용하지 마세요. 3.0.0이 이미 원래 AutoCrop을 교체했다면 원본 저장소의 AutoCrop 2.5.3 설치기로 원래 기능을 복구하고, 이 AutoCrop_SixView 3.1.0을 추가 설치하세요. AutoCrop_SixView 설치기는 AutoCrop 3.0.0도 자동 삭제하지 않습니다.
 
 ## 사용
 
 - 좌클릭: 1배로 6장 저장.
 - 우클릭: ×2 / ×3 / ×4 선택 후 6장 저장. 다음 좌클릭은 다시 1배.
-- 우클릭 → 저장 폴더 변경: 이후 실행에도 유지. `BKIDAutoCropFolder` 명령도 사용 가능.
+- 우클릭 → 저장 폴더 변경: 이후 실행에도 유지. `BKIDAutoCropSixViewFolder` 명령도 사용 가능.
 - 선택 객체가 있으면 선택한 표시 객체만 캡처합니다. 없으면 보이는 모델 전체를 캡처합니다. 모델별 출력이 필요하면 해당 모델만 선택하고 실행하세요. 여러 모델 파일을 자동으로 여는 일괄 처리는 포함하지 않습니다.
 
 실행별 `BKID_6VIEW_날짜_고유번호` 폴더에 `FRONT.png`, `TOP.png`, `LEFT.png`, `RIGHT.png`, `BOTTOM.png`, `BACK.png`를 저장합니다.
@@ -36,7 +42,7 @@ python3 -m unittest discover -s tests -p 'test_capture_scale.py' -v
 python3 -m unittest discover -s tests -p 'test_six_views.py' -v
 ```
 
-전체 테스트 중 과거 Python 설치기 검사는 `dist/Install_BKID_AutoCrop.py` 생성이 필요합니다. 권장 배포는 EXE/RHI입니다. 기존 아이콘을 재생성하지 않고 테스트용 Python 설치기를 준비하는 방법:
+전체 테스트 중 과거 Python 설치기 검사는 `dist/Install_AutoCrop_SixView.py` 생성이 필요합니다. 권장 배포는 EXE/RHI입니다. 기존 아이콘을 재생성하지 않고 테스트용 Python 설치기를 준비하는 방법:
 
 ```sh
 python3 -c 'import tools.build_release as b; b.build_rui = lambda: None; b.main()'

@@ -1,4 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
-  <ItemGroup><Compile Include="../../plugin/BKID.AutoCrop.Setup/ManagedFiles.cs" Link="ManagedFiles.cs" /><Compile Include="../../plugin/BKID.AutoCrop.Setup/InstallWorkflow.cs" Link="InstallWorkflow.cs" /><Compile Include="../../plugin/BKID.AutoCrop.Setup/InstallationVerification.cs" Link="InstallationVerification.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../plugin/BKID.AutoCropSixView.Setup/ManagedFiles.cs" Link="ManagedFiles.cs" /><Compile Include="../../plugin/BKID.AutoCropSixView.Setup/InstallWorkflow.cs" Link="InstallWorkflow.cs" /><Compile Include="../../plugin/BKID.AutoCropSixView.Setup/InstallationVerification.cs" Link="InstallationVerification.cs" /><Compile Include="../../plugin/BKID.AutoCropSixView.Setup/InstallationIdentity.cs" Link="InstallationIdentity.cs" /></ItemGroup>
 </Project>

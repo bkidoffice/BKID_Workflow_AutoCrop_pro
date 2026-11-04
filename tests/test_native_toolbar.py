@@ -7,7 +7,7 @@ import zipfile
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
-RUI = ROOT / 'plugin/BKID.AutoCrop/Toolbar/BKID.AutoCrop.rui'
+RUI = ROOT / 'plugin/BKID.AutoCropSixView/Toolbar/BKID.AutoCropSixView.rui'
 
 
 class NativeToolbarTests(unittest.TestCase):
@@ -20,14 +20,14 @@ class NativeToolbarTests(unittest.TestCase):
         button = bar.find('tool_bar_item')
         macro = macros[button.findtext('left_macro_id')]
         right = macros[button.findtext('right_macro_id')]
-        self.assertEqual(group.findtext('text/locale_1033'), 'BKID Workflowboost')
+        self.assertEqual(group.findtext('text/locale_1033'), 'AutoCrop_SixView')
         self.assertEqual(group.get('active_tool_bar_group'), bar.get('guid'))
         self.assertEqual(group.find('tool_bar_group_item').get('guid'), bar.get('guid'))
         self.assertEqual(group.findtext('tool_bar_group_item/tool_bar_id'), bar.get('guid'))
         self.assertEqual(group.find('dock_bar_info').get('floating'), 'True')
         self.assertEqual(bar.findtext('tool_bar_item/left_macro_id'), macro.get('guid'))
-        self.assertEqual(macro.findtext('script'), '! _BKIDAutoCropCapture')
-        self.assertEqual(right.findtext('script'), '! _BKIDAutoCropResolution')
+        self.assertEqual(macro.findtext('script'), '! _BKIDAutoCropSixViewCapture')
+        self.assertEqual(right.findtext('script'), '! _BKIDAutoCropSixViewResolution')
         self.assertNotEqual(macro.get('guid'), right.get('guid'))
         self.assertIn('1배', macro.findtext('tooltip/locale_1033'))
         self.assertIn('×2', right.findtext('tooltip/locale_1033'))
@@ -45,8 +45,8 @@ class NativeToolbarTests(unittest.TestCase):
                 self.assertEqual(png.getpixel((0, 0))[3], 0)
 
     def test_rhi_contains_matching_named_plugin_and_toolbar(self):
-        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_3.0.0.rhi') as archive:
+        with zipfile.ZipFile(ROOT / 'installers/AutoCrop_SixView_3.1.0.rhi') as archive:
             self.assertIsNone(archive.testzip())
-            self.assertEqual(set(archive.namelist()), {'BKID.AutoCrop.rhp', 'BKID.AutoCrop.rui'})
-            self.assertTrue(archive.read('BKID.AutoCrop.rhp').startswith(b'MZ'))
-            self.assertEqual(archive.read('BKID.AutoCrop.rui'), RUI.read_bytes())
+            self.assertEqual(set(archive.namelist()), {'BKID.AutoCropSixView.rhp', 'BKID.AutoCropSixView.rui'})
+            self.assertTrue(archive.read('BKID.AutoCropSixView.rhp').startswith(b'MZ'))
+            self.assertEqual(archive.read('BKID.AutoCropSixView.rui'), RUI.read_bytes())

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CaptureScaleTests(unittest.TestCase):
     def setUp(self):
-        spec = importlib.util.spec_from_file_location('capture_under_test', ROOT / 'BKID_AutoCrop/BKID_AutoCrop.py')
+        spec = importlib.util.spec_from_file_location('capture_under_test', ROOT / 'AutoCrop_SixView/AutoCrop_SixView.py')
         self.capture = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.capture)
 
@@ -37,9 +37,9 @@ class CaptureScaleTests(unittest.TestCase):
                 SpecialFolder=SimpleNamespace(Desktop='Desktop'),
                 GetFolderPath=lambda _: str(desktop))
             with patch.dict(sys.modules, {'System': SimpleNamespace(Environment=environment)}):
-                self.assertEqual(self.capture.resolve_output_folder(), str(desktop / 'BKID_Captures'))
+                self.assertEqual(self.capture.resolve_output_folder(), str(desktop / 'AutoCrop_SixView_Captures'))
                 self.assertEqual(self.capture.resolve_output_folder(str(configured)), str(configured))
-                self.assertEqual(self.capture.resolve_output_folder(), str(desktop / 'BKID_Captures'))
+                self.assertEqual(self.capture.resolve_output_folder(), str(desktop / 'AutoCrop_SixView_Captures'))
             self.assertIsNone(self.capture.OUTPUT_FOLDER)
             self.assertFalse(configured.exists(), 'Resolving a folder must not create it.')
 

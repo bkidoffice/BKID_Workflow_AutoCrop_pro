@@ -1,15 +1,15 @@
 using System.Xml;
 using System.Xml.Linq;
-using BKID.AutoCrop;
+using BKID.AutoCropSixView;
 static void Assert(bool condition, string message) { if (!condition) throw new Exception(message); }
 string template = File.ReadAllText(args[0]);
 var old = XDocument.Parse(template);
 var macros = old.Root!.Element("macros")!;
-var capture = macros.Elements("macro_item").Single(m => (string)m.Element("script") == "! _BKIDAutoCropCapture");
-var resolution = macros.Elements("macro_item").Single(m => (string)m.Element("script") == "! _BKIDAutoCropResolution");
+var capture = macros.Elements("macro_item").Single(m => (string)m.Element("script") == "! _BKIDAutoCropSixViewCapture");
+var resolution = macros.Elements("macro_item").Single(m => (string)m.Element("script") == "! _BKIDAutoCropSixViewResolution");
 string rightId = (string)resolution.Attribute("guid")!;
 string newLeftId = (string)capture.Attribute("guid")!;
-capture.SetAttributeValue("guid", "654e9b41-09dc-51b6-8de2-4ee942d03864");
+capture.SetAttributeValue("guid", "ea5d8f95-b8c4-598b-8316-0df44b2cad46");
 resolution.Remove();
 var button = old.Descendants("tool_bar_item").First();
 button.SetElementValue("left_macro_id", (string)capture.Attribute("guid")!);
@@ -33,7 +33,7 @@ var resultButton = result.Descendants("tool_bar_item").First();
 Assert((string)resultButton.Element("right_macro_id") == rightId, "Right-click not changed.");
 Assert((string)resultButton.Element("left_macro_id") == newLeftId, "Left hover macro was not refreshed.");
 Assert((string)resultButton.Element("left_macro_id") != (string)button.Element("left_macro_id"), "Old hover identity was reused.");
-Assert((string)result.Descendants("macro_item").Single(m => (string)m.Attribute("guid") == newLeftId).Element("script") == "! _BKIDAutoCropCapture", "Left capture behavior changed.");
+Assert((string)result.Descendants("macro_item").Single(m => (string)m.Attribute("guid") == newLeftId).Element("script") == "! _BKIDAutoCropSixViewCapture", "Left capture behavior changed.");
 Assert(XNode.DeepEquals(result.Descendants("dock_bar_info").First(), originalDock), "Docking/visibility XML changed.");
 Assert(result.Descendants("tool_bar_item").Last().ToString() == originalOther, "Unrelated button changed.");
 Assert(ToolbarBindings.Patch(repaired!, template) == null, "Repair should be idempotent.");

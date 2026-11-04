@@ -9,8 +9,8 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '3.0.0'
-PROJECT = ROOT / 'plugin/BKID.AutoCrop/BKID.AutoCrop.csproj'
+VERSION = '3.1.0'
+PROJECT = ROOT / 'plugin/BKID.AutoCropSixView/BKID.AutoCropSixView.csproj'
 
 
 def main():
@@ -26,32 +26,32 @@ def main():
     probe = ROOT / 'tools/CheckRhino6/CheckRhino6.csproj'
     subprocess.run([args.dotnet, 'restore', str(probe), '--locked-mode'], check=True)
     subprocess.run([args.dotnet, 'build', str(probe), '-c', 'Release', '--no-restore'], check=True)
-    binary = PROJECT.parent / 'bin/Release/net45/BKID.AutoCrop.rhp'
+    binary = PROJECT.parent / 'bin/Release/net45/BKID.AutoCropSixView.rhp'
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'),
                     '-c', 'Release', '--', str(binary),
-                    str(ROOT / 'BKID_AutoCrop/BKID_AutoCrop.py'),
-                    str(ROOT / 'BKID_AutoCrop/assets/icon_64.png')], check=True)
+                    str(ROOT / 'AutoCrop_SixView/AutoCrop_SixView.py'),
+                    str(ROOT / 'AutoCrop_SixView/assets/icon_64.png')], check=True)
     destination = ROOT / 'installers'
     destination.mkdir(exist_ok=True)
-    installer = destination / ('BKID_AutoCrop_' + VERSION + '.rhi')
+    installer = destination / ('AutoCrop_SixView_' + VERSION + '.rhi')
     with zipfile.ZipFile(installer, 'w', zipfile.ZIP_DEFLATED) as archive:
-        info = zipfile.ZipInfo('BKID.AutoCrop.rhp', date_time=(2026, 1, 1, 0, 0, 0))
+        info = zipfile.ZipInfo('BKID.AutoCropSixView.rhp', date_time=(2026, 1, 1, 0, 0, 0))
         info.compress_type = zipfile.ZIP_DEFLATED
         archive.writestr(info, binary.read_bytes())
-        info = zipfile.ZipInfo('BKID.AutoCrop.rui', date_time=(2026, 1, 1, 0, 0, 0))
+        info = zipfile.ZipInfo('BKID.AutoCropSixView.rui', date_time=(2026, 1, 1, 0, 0, 0))
         info.compress_type = zipfile.ZIP_DEFLATED
         archive.writestr(info, toolbar.read_bytes())
     with zipfile.ZipFile(installer) as archive:
         if archive.testzip() is not None:
             raise RuntimeError('RHI integrity check failed')
-        assert archive.namelist() == ['BKID.AutoCrop.rhp', 'BKID.AutoCrop.rui']
-        assert archive.read('BKID.AutoCrop.rui') == toolbar.read_bytes()
-        assert archive.read('BKID.AutoCrop.rhp') == binary.read_bytes()
-    setup_project = ROOT / 'plugin/BKID.AutoCrop.Setup/BKID.AutoCrop.Setup.csproj'
+        assert archive.namelist() == ['BKID.AutoCropSixView.rhp', 'BKID.AutoCropSixView.rui']
+        assert archive.read('BKID.AutoCropSixView.rui') == toolbar.read_bytes()
+        assert archive.read('BKID.AutoCropSixView.rhp') == binary.read_bytes()
+    setup_project = ROOT / 'plugin/BKID.AutoCropSixView.Setup/BKID.AutoCropSixView.Setup.csproj'
     subprocess.run([args.dotnet, 'restore', str(setup_project), '--locked-mode'], check=True)
     subprocess.run([args.dotnet, 'build', str(setup_project), '-c', 'Release', '--no-restore'], check=True)
-    setup_binary = setup_project.parent / 'bin/Release/net45' / ('BKID_AutoCrop_Setup_' + VERSION + '.exe')
-    subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'), '-c', 'Release', '--', '--setup', str(setup_binary), str(installer), str(ROOT / 'BKID_AutoCrop/assets/WizardImage.png')], check=True)
+    setup_binary = setup_project.parent / 'bin/Release/net45' / ('AutoCrop_SixView_Setup_' + VERSION + '.exe')
+    subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'), '-c', 'Release', '--', '--setup', str(setup_binary), str(installer), str(ROOT / 'AutoCrop_SixView/assets/WizardImage.png')], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestSetup'), '-c', 'Release'], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestCapture'), '-c', 'Release', '--', sys.executable], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestToolbar'), '-c', 'Release', '--', str(toolbar)], check=True)

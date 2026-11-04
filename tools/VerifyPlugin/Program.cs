@@ -10,8 +10,8 @@ using var pe = new PEReader(input);
 if (!pe.HasMetadata) throw new Exception("The RHP is not a compiled .NET assembly.");
 var reader = pe.GetMetadataReader();
 var assembly = reader.GetAssemblyDefinition();
-if (reader.GetString(assembly.Name) != (setup ? "BKID_AutoCrop_Setup_3.0.0" : "BKID.AutoCrop")) throw new Exception("Wrong assembly identity.");
-if (assembly.Version != new Version(3, 0, 0, 0)) throw new Exception("Wrong assembly version.");
+if (reader.GetString(assembly.Name) != (setup ? "AutoCrop_SixView_Setup_3.1.0" : "BKID.AutoCropSixView")) throw new Exception("Wrong assembly identity.");
+if (assembly.Version != new Version(3, 1, 0, 0)) throw new Exception("Wrong assembly version.");
 bool validGuid = false;
 foreach (var handle in assembly.GetCustomAttributes())
 {
@@ -23,7 +23,7 @@ foreach (var handle in assembly.GetCustomAttributes())
     if (reader.GetString(type.Name) != "GuidAttribute") continue;
     var value = reader.GetBlobReader(attr.Value);
     if (value.ReadUInt16() != 1) throw new Exception("Invalid GUID attribute encoding.");
-    validGuid = value.ReadSerializedString() == "3881C10B-30A8-4FE5-BB48-9E53A6FEA1F4";
+    validGuid = value.ReadSerializedString() == "EBA693A2-8ACF-5DC1-9A01-FC9CCB4D3DE0";
 }
 if (!setup && !validGuid) throw new Exception("Missing Rhino installer assembly GUID.");
 var resources = new Dictionary<string, byte[]>();
@@ -44,9 +44,9 @@ if (setup)
     Console.WriteLine("Verified Windows setup executable, version, embedded RHI and exact original wizard artwork.");
     return;
 }
-if (!resources["BKID.AutoCrop.Capture.py"].SequenceEqual(File.ReadAllBytes(args[1])))
+if (!resources["BKID.AutoCropSixView.Capture.py"].SequenceEqual(File.ReadAllBytes(args[1])))
     throw new Exception("Embedded capture differs from repository source.");
-if (!resources["BKID.AutoCrop.Icon.png"].SequenceEqual(File.ReadAllBytes(args[2])))
+if (!resources["BKID.AutoCropSixView.Icon.png"].SequenceEqual(File.ReadAllBytes(args[2])))
     throw new Exception("Embedded logo differs from repository asset.");
 var versions = reader.AssemblyReferences.Select(h => reader.GetAssemblyReference(h))
     .ToDictionary(reference => reader.GetString(reference.Name), reference => reference.Version);

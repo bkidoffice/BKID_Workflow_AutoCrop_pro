@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<RhinoUI major_ver="2" minor_ver="0" guid="daebccbe-c96b-56b3-9012-f7c0d56a390f" localize="False" default_language_id="1033">
+  <extend_rhino_menus>
+    <menu guid="35ca8c0c-43e4-529c-bfc0-a768c2a83b3d">
+      <text>
+        <locale_1033>Extend Rhino Menus</locale_1033>
+      </text>
+    </menu>
+  </extend_rhino_menus>
+  <menus />
+  <tool_bar_groups>
+    <tool_bar_group guid="6d3ef067-b6a5-509c-be0d-3a815bfbd6bd" dock_bar_guid32="" dock_bar_guid64="" active_tool_bar_group="" single_file="False" hide_single_tab="True" point_floating="100,100">
+      <text>
+        <locale_1033>AutoCrop_SixView</locale_1033>
+      </text>
+      <tool_bar_group_item guid="746e3b13-7c5a-5d85-8adc-ef9579a3f162" major_version="1" minor_version="1">
+        <text>
+          <locale_1033>AutoCrop_SixView</locale_1033>
+        </text>
+        <tool_bar_id>a394dced-7b2a-5be9-8ab5-8959ac8c9bea</tool_bar_id>
+      </tool_bar_group_item>
+    </tool_bar_group>
+  </tool_bar_groups>
+  <tool_bars>
+    <tool_bar guid="a394dced-7b2a-5be9-8ab5-8959ac8c9bea" item_display_style="bitmap_only">
+      <text>
+        <locale_1033>AutoCrop_SixView</locale_1033>
+      </text>
+      <tool_bar_item guid="e28546f6-316a-5c9e-9fba-8a5d9bc89dee" button_display_mode="control_only" button_style="normal">
+        <left_macro_id>fa4c3117-13e4-5e13-bb34-20a5effd7c91</left_macro_id>
+        <right_macro_id>fa4c3117-13e4-5e13-bb34-20a5effd7c91</right_macro_id>
+      </tool_bar_item>
+    </tool_bar>
+  </tool_bars>
+  <macros>
+    <macro_item guid="fa4c3117-13e4-5e13-bb34-20a5effd7c91">
+      <text>
+        <locale_1033>Run SixView</locale_1033>
+      </text>
+      <button_text>
+        <locale_1033>Run SixView</locale_1033>
+      </button_text>
+      <menu_text>
+        <locale_1033>Run SixView</locale_1033>
+      </menu_text>
+      <tooltip>
+        <locale_1033>Capture transparent PNG with 1px margin</locale_1033>
+      </tooltip>
+      <help_text>
+        <locale_1033>AutoCrop_SixView for Windows Rhino 6 / 8</locale_1033>
+      </help_text>
+      <script>! RunAutoCropSixView</script>
+      <bitmap_id>1f647936-b563-56d3-aec7-d00cb21b2cca</bitmap_id>
+    </macro_item>
+  </macros>
+  <bitmaps>
+    <small_bitmap item_width="16" item_height="16">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfqCwQDEQ2sl9X2AAABjUlEQVQ4y63TP2tUURAF8N/svt2FRBQsROPfehHSiellsQjIdqLfwNaPIDZWNmJlaWFjkcbGSlOqhaBNuogaFoMJqPDW7I7Fu5ssSRccGO69c+fMO3PmPv6/ZVljLnajxPNIdujUpC5xDxcxIRPP8bHkLRN3StU2NsmnGFelaA8reEnna0n81hAaw3fhVaGwJN3Cs6bAPtX4Ld99iMlKF11cwWlsYJSMVDVcFjGQgVQd9FWlfHEJT3AOLbzGbdRNToucFoEaXFXQY2JNfv6FUzhZ4otHBI7YldYazJzUZXMBjwr1wHs8xF45ZwHmPu+DZa9w1CvewgIeNFMwxU/cx5cDVp2aqu6pcigG14OtIIu/Cd7Onbcibq5o51C77mnXWkWLLtNV0V/EdvnSDnaL75TYdkb/hJiuojMvIiYh7m7yeFjG2MKfcrlQWhg372nSmqFmBRKLYvlaVjl7SJ8wKvdn0G+2f89jQcShMWauN2KNr2Iq/MCoaTHPEoNSuBKxPhvjMWz2Uy0dE3/I/gH19H02/1QfWQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0xMS0wNFQwMzoxNjoyMyswMDowMBpOFUIAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMTEtMDRUMDM6MTY6MjMrMDA6MDBrE63+AAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI2LTExLTA0VDAzOjE3OjEzKzAwOjAwXUvg/AAAAABJRU5ErkJggg==</bitmap>
+      <bitmap_item guid="1f647936-b563-56d3-aec7-d00cb21b2cca" index="0" />
+    </small_bitmap>
+    <normal_bitmap item_width="24" item_height="24">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfqCwQDEQ2sl9X2AAACdklEQVRIx+3UvascZRQG8N+ZfWcjGhWxS+MXWpkUWgnaWFjZiBDsLST+CxZaaa+FgqVBCwt7QTtFUyRYpAuxELTwgh+LcO+dj2MxM7uzczeiVRoPzDL7zvl6nvO8h7tngfv/g+9dbJP6mFDp4yXiid3nnHy+xXXtC7hGadA/Szw3Oc1ibpFfsk5tpWzrZFbEm3gat2a4K/wqXefakC9bwlPSK0K/7SY9iR/wFW27Q1AadIXqC3yv956oy6yrluh0Y81Vg6ZQlaFiQIe3RDwj81W0unMTgn6OsbWqO00sR7dCrujbrh78hmeoUZrpbC+s7IkgofTRxAW8iwdmHK/wdccHQe4TX+GU7Ce6iZgVyJwNNOBBvIyHF6LYpEOizKlkzHKcQZAyb+BH+7xNzcZZxSwtbmNNnwOqyc4l9YZyUruQEVwMjoJcPJ/Ygl8gWJ2wOlmpTmo2VH/NEJxsQ5r4GRzhY5xfzOC70XNRpKKT6FJ2c/zFYSvjHM4vJnkfruB5e9LLzSiKnw6nuydZ/0l9vPbQP1J0Nfj0wPlRcNG9GcrxWvUHJbdd0Z1ivZLxjo3LhkszUZOL9/4O551Tr8l4e8jVzApk0mcQl/DIGDDRHIv36g7n8ChxSYipjwMz6OF3fG7Y11OXFb6ZOXaz5Bv8NsamjMVFi/EnJV2VJX8pbVypJk7ijDI/gsjcXtG+JE6rpb4OqahWNeu2NGW3xzSURjOyUxqir6nqbVQ0rd7wP2KLe1wV20vaS6/rvEgf492t8CHNZztVJvKy7N8Y1vWEPh7HjWFb5BzBlDzfx2O7RCOB4eaZJZFu4uqQePYx4rbsO//bv7W/AVZhAKHUVjqZAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI2LTExLTA0VDAzOjE2OjIzKzAwOjAwGk4VQgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNi0xMS0wNFQwMzoxNjoyMyswMDowMGsTrf4AAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjYtMTEtMDRUMDM6MTc6MTMrMDA6MDBdS+D8AAAAAElFTkSuQmCC</bitmap>
+      <bitmap_item guid="1f647936-b563-56d3-aec7-d00cb21b2cca" index="0" />
+    </normal_bitmap>
+    <large_bitmap item_width="32" item_height="32">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfqCwQDEQ41noRMAAADd0lEQVRYw+2WO48URxDHfzXTO7sLB4exOO4yjoCAD+CMxIQOndgpn8CWLFkYiQjLIkMgBLKMTIKI+QQnEVlCzvyQOLCNhXhZ5nG6x3bv7BTB9Ox0787sHrYlZImSRrfXVdX1r39XdTW8k5mS+r8HgfU39BXAvO0EdgezlK6CBYw7BqwgoqjWFjq2f4SadRIHw36pM5vAXsAeAyl90cpHERFQQXlEmq2jgJMJKJ1BGcW4qxg3wLjNhm+AcZdInLevfDe8r70y29deJlNIdewaHFK3+tEDNlD9GmTDpy+egxT4FUlBk2k+VW8APyJShKsoB0DPAD0SILcNh2GKioHrGHeXjl3CTBoq8CwEO1+MBTNYxrh7GHeNrkJa7xswMIK+geFkhWhQKjI/YCSZrwOpXVMgD/DVwUawY4KVTGUo+4ETQGeCBoAEuAv8HC7GkvuIoxq9xtZRo0q8UQGsAt8D7zXEMMB54HQ7A4UPrmEXRTsFALTqGgGRwMH4bxKAeBZasg+sEEGlDF4oSF3AcSn/IgDPgScIVSXP3H+mskYwAh6DvkBinoMa6JVEwzdA78hQXjyAI/PiCPNApED+N+inKDsioOoaADiBFYDuM4AHMc1t5S9zQeRpxcCfALoTq+dNi4eURdZriJEAd3Z3DO0yD0AHOAz0WwAsAB8JnPRZTrKzDXwLPGwDOQ/AMvAZcKBFrx7I5y36l8Atz2Sj1F3QU7rHz0HHrtCxq3pifGNoEExb1mbqdVGFdHAUY5fZGw+jGkAxYPRBD5TTKDf4ofHy+SeibHEQkpsoX+IA6i5IAjP2XfgCYBHkEEryppEapOqeBOEQyGK5Ug/LqAbMxQCOv7eAgf9CNtT7Dn0SQ6IRMw6+E0RTUMUQlasJt/zrrIJx42GjcF+QT0DbhtHvPtBaCwE56H3KbqG+4qUBgEzcNeoEYzc1797eBdX3mpcLMA6wC5CATNdUcM6VTsJ//qVEd2T5sCjaGIhv2/dBTgEbGBsqEoSfGGZrZDk4fzLZFrg9YOyHIMfL1MevkAJYpBrpozi3aBwbFfKO3UKlD3w1DU4NyHdg18pnYrU8qrb4GDgF5CDqCRBQRcQA26QCuU7tDGYb8j6kbhVYonogxKUhwFNG+gdZt35ad17BcD+k9ijIElPveREEQXmKZr+RbEG+8N+c8jv538trC0tSOY/sZJEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjYtMTEtMDRUMDM6MTY6MjMrMDA6MDAaThVCAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI2LTExLTA0VDAzOjE2OjIzKzAwOjAwaxOt/gAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNi0xMS0wNFQwMzoxNzoxNCswMDowMJjs3nIAAAAASUVORK5CYII=</bitmap>
+      <bitmap_item guid="1f647936-b563-56d3-aec7-d00cb21b2cca" index="0" />
+    </large_bitmap>
+  </bitmaps>
+  <scripts />
+</RhinoUI>

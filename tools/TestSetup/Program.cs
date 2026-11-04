@@ -1,11 +1,11 @@
-using BKID.AutoCrop.Setup;
+using BKID.AutoCropSixView.Setup;
 
 static void Assert(bool condition, string message) { if (!condition) throw new Exception(message); }
 var root = Path.Combine(Path.GetTempPath(), "BKID 삭제 설치 테스트 " + Guid.NewGuid());
 Directory.CreateDirectory(root);
 try
 {
-    var previous = Path.Combine(root, "BKID.AutoCrop.rhp");
+    var previous = Path.Combine(root, "BKID.AutoCropSixView.rhp");
     var userFile = Path.Combine(root, "사용자 메모.txt");
     File.WriteAllBytes(previous, new byte[] { 1, 2, 3, 4 });
     File.WriteAllText(userFile, "preserve");
@@ -69,10 +69,10 @@ try
 
     var verifiedFolder = Path.Combine(root, "verified");
     Directory.CreateDirectory(verifiedFolder);
-    var plugin = Path.Combine(verifiedFolder, "BKID.AutoCrop.rhp");
+    var plugin = Path.Combine(verifiedFolder, "BKID.AutoCropSixView.rhp");
     var rui = Path.ChangeExtension(plugin, ".rui");
     byte[] payload = new byte[] { 0x4d, 0x5a, 7, 9 };
-    string toolbar = "<RhinoUI major_ver='2' guid='own-collection'><tool_bar_groups><tool_bar_group><dock_bar_info floating='True'/></tool_bar_group></tool_bar_groups><macros><macro_item guid='left'><script>! _BKIDAutoCropCapture</script></macro_item><macro_item guid='right'><script>! _BKIDAutoCropResolution</script></macro_item></macros></RhinoUI>";
+    string toolbar = "<RhinoUI major_ver='2' guid='own-collection'><tool_bar_groups><tool_bar_group><dock_bar_info floating='True'/></tool_bar_group></tool_bar_groups><macros><macro_item guid='left'><script>! _BKIDAutoCropSixViewCapture</script></macro_item><macro_item guid='right'><script>! _BKIDAutoCropSixViewResolution</script></macro_item></macros></RhinoUI>";
     var verification = new InstallationVerification(payload, System.Text.Encoding.UTF8.GetBytes(toolbar));
     File.WriteAllBytes(plugin, payload);
     File.WriteAllText(rui, toolbar);
@@ -110,6 +110,28 @@ try
     missingCommand.Save(rui);
     Assert(!verification.Matches(plugin), "Missing resolution command must fail verification.");
     Console.WriteLine("PASS: old/missing files and missing commands remain failures; delayed valid files after 403 succeed.");
+
+    // Use the installer's actual candidate enumerator with both products present.
+    var coexist = Path.Combine(root, "coexist");
+    Directory.CreateDirectory(coexist);
+    var original = Path.Combine(coexist, "AutoCrop");
+    var six = Path.Combine(coexist, "AutoCrop_SixView");
+    Directory.CreateDirectory(original);
+    Directory.CreateDirectory(six);
+    var originalPlugin = Path.Combine(original, "BKID.AutoCrop.rhp");
+    var originalToolbar = Path.Combine(original, "BKID.AutoCrop.rui");
+    File.WriteAllText(originalPlugin, "original-plugin");
+    File.WriteAllText(originalToolbar, "original-toolbar");
+    var independent = Path.Combine(six, "BKID.AutoCropSixView.rhp");
+    File.WriteAllText(independent, "sixview-plugin");
+    var candidates = InstallationIdentity.EnumeratePluginFiles(coexist).ToArray();
+    Assert(candidates.SequenceEqual(new[] { independent }), "AutoCrop must never enter SixView deletion candidates.");
+    foreach (var candidate in candidates) managed.Remove(candidate);
+    Assert(File.ReadAllText(originalPlugin) == "original-plugin", "AutoCrop RHP was changed.");
+    Assert(File.ReadAllText(originalToolbar) == "original-toolbar", "AutoCrop RUI was changed.");
+    Assert(!string.Equals(InstallationIdentity.PluginId, "3881C10B-30A8-4FE5-BB48-9E53A6FEA1F4", StringComparison.OrdinalIgnoreCase),
+           "SixView registry identity must differ from AutoCrop.");
+    Console.WriteLine("PASS: actual SixView installer discovery excludes original AutoCrop; original RHP/RUI survive removal.");
 
 }
 finally { Directory.Delete(root, true); }

@@ -1,12 +1,12 @@
 using System.Diagnostics;
-using BKID.AutoCrop;
+using BKID.AutoCropSixView;
 
 if (args.Length != 1) throw new ArgumentException("Pass the Python executable path.");
 var folder = Path.Combine(Path.GetTempPath(), "BKID 배율 테스트 " + Guid.NewGuid());
 Directory.CreateDirectory(folder);
 try
 {
-    string capture = Path.Combine(folder, "BKID_AutoCrop.py");
+    string capture = Path.Combine(folder, "AutoCrop_SixView.py");
     string source = "import os\nimport json\nCAPTURE_SCALE = 1\ndef run(capture_scale=None, output_folder=None):\n    with open(os.path.join(os.path.dirname(__file__), 'result.txt'), 'w') as f:\n        json.dump([capture_scale, CAPTURE_SCALE, output_folder], f)\n    if output_folder and os.path.isdir(output_folder):\n        with open(os.path.join(output_folder, 'capture_' + str(capture_scale) + '.png'), 'wb') as f:\n            f.write(b'capture-test')\n";
     File.WriteAllText(capture, source);
     var selectedFolder = Path.Combine(folder, "PNG 결과 '프로젝트 A'");
