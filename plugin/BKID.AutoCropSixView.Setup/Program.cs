@@ -41,7 +41,7 @@ namespace BKID.AutoCropSixView.Setup
         private bool busy;
         public SetupWindow()
         {
-            Text = "BKID_AutoCrop_SixView 3.1.5 설치";
+            Text = "BKID_AutoCrop_SixView 3.1.6 설치";
             ClientSize = new Size(760, 420);
             Padding = new Padding(0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -164,7 +164,7 @@ namespace BKID.AutoCropSixView.Setup
 
         private void Install(string temporary, bool replacementAllowed, string engine)
         {
-            string package = Path.Combine(temporary, "BKID_AutoCrop_SixView_3.1.5.rhi");
+            string package = Path.Combine(temporary, "BKID_AutoCrop_SixView_3.1.6.rhi");
             using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream("BKID.Setup.Package.rhi"))
             using (var output = File.Create(package)) input.CopyTo(output);
             byte[] expectedPlugin;
@@ -203,7 +203,7 @@ namespace BKID.AutoCropSixView.Setup
             }
             // Only this independent plugin's current runtime belongs to SixView.
             foreach (var name in new[] { "BKID_AutoCrop_SixView.py", "BKID_AutoCrop_SixView_x1.py", "BKID_AutoCrop_SixView_x2.py", "BKID_AutoCrop_SixView_x3.py", "BKID_AutoCrop_SixView_x4.py" })
-                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.5", name));
+                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.6", name));
             managed.Validate(files);
             // A new installation may have appeared since the wizard checked.
             InstallWorkflow.RequireConsent(IsInstalled(), replacementAllowed);

@@ -165,5 +165,50 @@ try
     }
     Console.WriteLine("PASS: 7-Zip rejected, McNeel engine selected, missing engine stops, direct process receives exact RHI path without shell association.");
 
+    // Reported failure: a registered x86 engine is found before the x64 engine.
+    string architectureRoot = Path.Combine(root, "engine-bitness");
+    Directory.CreateDirectory(architectureRoot);
+    string WritePe(string folder, ushort machine, bool managed, uint flags)
+    {
+        Directory.CreateDirectory(folder);
+        string path = Path.Combine(folder, "rhiexec.exe");
+        using (var output = File.Create(path))
+        using (var writer = new BinaryWriter(output))
+        {
+            output.SetLength(0x300);
+            writer.Write((ushort)0x5a4d); output.Position = 0x3c; writer.Write(0x80);
+            output.Position = 0x80; writer.Write(0x4550); writer.Write(machine); writer.Write((ushort)1);
+            output.Position = 0x94; writer.Write((ushort)224);
+            output.Position = 0x98; writer.Write((ushort)(machine == 0x8664 ? 0x20b : 0x10b));
+            if (managed)
+            {
+                output.Position = 0x98 + 208; writer.Write(0x2000u);
+                output.Position = 0x98 + 224 + 8;
+                writer.Write(0x100u); writer.Write(0x2000u); writer.Write(0x100u); writer.Write(0x200u);
+                output.Position = 0x210; writer.Write(flags);
+            }
+        }
+        return path;
+    }
+    var x86Engine = WritePe(Path.Combine(architectureRoot, "x86"), 0x14c, true, 3);
+    var x64Engine = WritePe(Path.Combine(architectureRoot, "x64"), 0x8664, false, 0);
+    var anyCpuEngine = WritePe(Path.Combine(architectureRoot, "anycpu"), 0x14c, true, 1);
+    var prefer32Engine = WritePe(Path.Combine(architectureRoot, "prefer32"), 0x14c, true, 0x20001);
+    var native32Engine = WritePe(Path.Combine(architectureRoot, "native32"), 0x14c, false, 0);
+    Assert(!InstallerEngineLaunch.Is64BitExecutable(x86Engine), "Requires32Bit engine accepted.");
+    Assert(InstallerEngineLaunch.Is64BitExecutable(x64Engine), "AMD64 engine rejected.");
+    Assert(InstallerEngineLaunch.Is64BitExecutable(anyCpuEngine), "64-bit-capable AnyCPU engine rejected.");
+    Assert(!InstallerEngineLaunch.Is64BitExecutable(prefer32Engine), "Prefers32Bit engine accepted.");
+    Assert(!InstallerEngineLaunch.Is64BitExecutable(native32Engine), "Native x86 engine accepted.");
+    Assert(InstallerEngineLaunch.Select64BitEngine(new[] { x86Engine, prefer32Engine, native32Engine, x64Engine }, _ => true) == x64Engine,
+           "An earlier x86 registration must not override the x64 engine.");
+    missingEngine = false;
+    try { InstallerEngineLaunch.Select64BitEngine(new[] { x86Engine, prefer32Engine }, _ => true); }
+    catch (FileNotFoundException) { missingEngine = true; }
+    Assert(missingEngine && File.Exists(originalPlugin), "Only-32-bit discovery must stop without deleting existing files.");
+    File.WriteAllBytes(Path.Combine(architectureRoot, "invalid.exe"), new byte[] { 1, 2, 3 });
+    Assert(!InstallerEngineLaunch.Is64BitExecutable(Path.Combine(architectureRoot, "invalid.exe")), "Invalid PE file accepted.");
+    Console.WriteLine("PASS: logged x86-first failure reproduced; x64 chosen, native/managed/preferred x86 rejected, AnyCPU64 accepted, no x86 fallback.");
+
 }
 finally { Directory.Delete(root, true); }

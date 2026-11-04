@@ -9,7 +9,7 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '3.1.5'
+VERSION = '3.1.6'
 PROJECT = ROOT / 'plugin/BKID.AutoCropSixView/BKID.AutoCropSixView.csproj'
 
 

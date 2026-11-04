@@ -12,7 +12,7 @@ namespace BKID.AutoCropSixView.Setup
     {
         internal static string Find()
         {
-            return InstallerEngineLaunch.SelectEngine(Candidates().Distinct(StringComparer.OrdinalIgnoreCase), Validate);
+            return InstallerEngineLaunch.Select64BitEngine(Candidates().Distinct(StringComparer.OrdinalIgnoreCase), Validate);
         }
 
         private static bool Validate(string path)
