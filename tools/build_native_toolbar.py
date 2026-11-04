@@ -27,9 +27,9 @@ def build():
                          dock_bar_guid32='8965d4e8-0a39-58e7-9aa9-d23ae01458e4',
                          dock_bar_guid64=guid('dock'), active_tool_bar_group=guid('toolbar'),
                          single_file='False', hide_single_tab='True', point_floating='150,150')
-    label(group, 'text', 'AutoCrop_SixView')
+    label(group, 'text', 'BKID_AutoCrop_SixView')
     item = E.SubElement(group, 'tool_bar_group_item', guid=guid('toolbar'), major_version='1', minor_version='1')
-    label(item, 'text', 'AutoCrop_SixView')
+    label(item, 'text', 'BKID_AutoCrop_SixView')
     E.SubElement(item, 'tool_bar_id').text = guid('toolbar')
     E.SubElement(group, 'dock_bar_info', dpi_scale='100', dock_bar='False', docking='True',
                  horz='True', visible='True', floating='True', mru_float_style='8192',
@@ -37,15 +37,15 @@ def build():
                  rect_mru_dock_pos='0,0,100,70', dock_location_u='0', dock_location='top', float_size='100,70')
     bars = E.SubElement(r, 'tool_bars')
     bar = E.SubElement(bars, 'tool_bar', guid=guid('toolbar'), bitmap_id=guid('icon'), item_display_style='control_only')
-    label(bar, 'text', 'AutoCrop_SixView')
+    label(bar, 'text', 'BKID_AutoCrop_SixView')
     button = E.SubElement(bar, 'tool_bar_item', guid=guid('button'))
-    label(button, 'text', 'SixView')
+    label(button, 'text', 'BKID_AutoCrop_SixView')
     E.SubElement(button, 'left_macro_id').text = guid('capture-hover-v2')
     E.SubElement(button, 'right_macro_id').text = guid('resolution-hover-v2')
     macros = E.SubElement(r, 'macros')
     for key, command, caption, tooltip in [
-            ('capture-hover-v2', 'BKIDAutoCropSixViewCapture', 'SixView', '6뷰 자동 크롭·PNG 저장 (1배)'),
-            ('resolution-hover-v2', 'BKIDAutoCropSixViewResolution', 'SixView 해상도 선택', '6뷰 해상도 선택 (×2·×3·×4)')]:
+            ('capture-hover-v2', 'BKIDAutoCropSixViewCapture', 'BKID_AutoCrop_SixView', '6뷰 자동 크롭·PNG 저장 (1배)'),
+            ('resolution-hover-v2', 'BKIDAutoCropSixViewResolution', 'BKID_AutoCrop_SixView 해상도 선택', '6뷰 해상도 선택 (×2·×3·×4)')]:
         macro = E.SubElement(macros, 'macro_item', guid=guid(key), bitmap_id=guid('icon'))
         for tag, value in [('text', caption),
                            ('tooltip', tooltip),
@@ -57,7 +57,7 @@ def build():
     for name, size in [('small', 16), ('normal', 24), ('large', 32)]:
         bitmap = E.SubElement(bitmaps, name + '_bitmap', item_width=str(size), item_height=str(size))
         E.SubElement(bitmap, 'bitmap_item', guid=guid('icon'), index='0')
-        E.SubElement(bitmap, 'bitmap').text = base64.b64encode((ROOT / 'AutoCrop_SixView/assets' / ('icon_%s.png' % size)).read_bytes()).decode('ascii')
+        E.SubElement(bitmap, 'bitmap').text = base64.b64encode((ROOT / 'BKID_AutoCrop_SixView/assets' / ('icon_%s.png' % size)).read_bytes()).decode('ascii')
     E.SubElement(r, 'scripts')
     E.indent(r)
     path = ROOT / 'plugin/BKID.AutoCropSixView/Toolbar/BKID.AutoCropSixView.rui'

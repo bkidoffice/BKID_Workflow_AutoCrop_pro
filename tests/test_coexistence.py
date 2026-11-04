@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import hashlib
 import unittest
 import xml.etree.ElementTree as E
 
@@ -19,7 +20,7 @@ class CoexistenceTests(unittest.TestCase):
         self.assertIn(guid, setup)
         self.assertNotIn('RemoveLegacyRegistration', plugin)
         self.assertNotIn('RunAutoCrop', plugin)
-        self.assertIn('"BKID", "AutoCrop_SixView", "runtime"', plugin)
+        self.assertIn('"BKID", "BKID_AutoCrop_SixView", "runtime"', plugin)
         self.assertIn('BKIDAutoCropSixViewCapture', plugin)
         self.assertNotIn('return \"BKIDAutoCrop\";', plugin)
 
@@ -28,7 +29,12 @@ class CoexistenceTests(unittest.TestCase):
         self.assertNotEqual(root.get('guid'), ORIGINAL_RUI_ID)
         commands = [m.findtext('script') for m in root.findall('macros/macro_item')]
         self.assertEqual(set(commands), {'! _BKIDAutoCropSixViewCapture', '! _BKIDAutoCropSixViewResolution'})
-        self.assertEqual(root.findtext('tool_bar_groups/tool_bar_group/text/locale_1033'), 'AutoCrop_SixView')
+        self.assertEqual(root.findtext('tool_bar_groups/tool_bar_group/text/locale_1033'), 'BKID_AutoCrop_SixView')
+
+    def test_wizard_artwork_matches_original_autocrop(self):
+        artwork = ROOT / 'BKID_AutoCrop_SixView/assets/WizardImage.png'
+        self.assertEqual(hashlib.sha256(artwork.read_bytes()).hexdigest(),
+                         'de7d90e80ff418fc02d8cfec794faadedd992d558fa79c9c2db9a8cd4fc4cfc8')
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ class NativeToolbarTests(unittest.TestCase):
         button = bar.find('tool_bar_item')
         macro = macros[button.findtext('left_macro_id')]
         right = macros[button.findtext('right_macro_id')]
-        self.assertEqual(group.findtext('text/locale_1033'), 'AutoCrop_SixView')
+        self.assertEqual(group.findtext('text/locale_1033'), 'BKID_AutoCrop_SixView')
         self.assertEqual(group.get('active_tool_bar_group'), bar.get('guid'))
         self.assertEqual(group.find('tool_bar_group_item').get('guid'), bar.get('guid'))
         self.assertEqual(group.findtext('tool_bar_group_item/tool_bar_id'), bar.get('guid'))
@@ -45,7 +45,7 @@ class NativeToolbarTests(unittest.TestCase):
                 self.assertEqual(png.getpixel((0, 0))[3], 0)
 
     def test_rhi_contains_matching_named_plugin_and_toolbar(self):
-        with zipfile.ZipFile(ROOT / 'installers/AutoCrop_SixView_3.1.0.rhi') as archive:
+        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_SixView_3.1.1.rhi') as archive:
             self.assertIsNone(archive.testzip())
             self.assertEqual(set(archive.namelist()), {'BKID.AutoCropSixView.rhp', 'BKID.AutoCropSixView.rui'})
             self.assertTrue(archive.read('BKID.AutoCropSixView.rhp').startswith(b'MZ'))

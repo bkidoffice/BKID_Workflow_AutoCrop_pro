@@ -18,7 +18,7 @@ namespace BKID.AutoCropSixView
             return "# -*- coding: utf-8 -*-\n" +
                    "import os\nimport runpy\nimport traceback\nimport base64\n" +
                    "try:\n" +
-                   "    scope = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'AutoCrop_SixView.py'))\n" +
+                   "    scope = runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'BKID_AutoCrop_SixView.py'))\n" +
                    "    scope['run'](capture_scale=" + scale.ToString(CultureInfo.InvariantCulture) + folderArgument + ")\n" +
                    "except Exception:\n" +
                    "    import Rhino\n" +

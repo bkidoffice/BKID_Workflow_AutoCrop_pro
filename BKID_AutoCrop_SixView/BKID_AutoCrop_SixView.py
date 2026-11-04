@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""AutoCrop_SixView 3.1.0 - Windows Rhino 6 and 8, IronPython 2.7.
+"""BKID_AutoCrop_SixView 3.1.1 - Windows Rhino 6 and 8, IronPython 2.7.
 Run with _RunPythonScript. No third-party Python packages required.
 """
 import math
@@ -8,7 +8,7 @@ import sys
 import traceback
 
 CAPTURE_SCALE = 1.0  # Capture resolution BEFORE crop; margin is always 1 pixel.
-OUTPUT_FOLDER = None  # None = Windows Desktop/AutoCrop_SixView_Captures
+OUTPUT_FOLDER = None  # None = Windows Desktop/BKID_AutoCrop_SixView_Captures
 MARGIN = 1
 
 
@@ -22,7 +22,7 @@ def initialize_runtime():
     import Rhino
     if System.Environment.OSVersion.Platform != System.PlatformID.Win32NT:
         raise RuntimeError(u"이 버전은 Windows 전용입니다.")
-    Rhino.RhinoApp.WriteLine("AutoCrop_SixView 3.1.0 | Rhino {0} | IronPython {1}".format(
+    Rhino.RhinoApp.WriteLine("BKID_AutoCrop_SixView 3.1.1 | Rhino {0} | IronPython {1}".format(
         Rhino.RhinoApp.Version, sys.version.split()[0]))
 
 
@@ -161,7 +161,7 @@ def resolve_output_folder(output_folder=None):
         import System
         folder = os.path.join(
             System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop),
-            "AutoCrop_SixView_Captures")
+            "BKID_AutoCrop_SixView_Captures")
     if not folder or not folder.strip():
         raise ValueError(u"PNG 저장 폴더를 선택해 주세요.")
     return os.path.abspath(folder)
@@ -347,5 +347,5 @@ if __name__ == "__main__":
         run()
     except Exception as error:
         import Rhino
-        Rhino.RhinoApp.WriteLine(u"AutoCrop_SixView: {0}".format(error))
+        Rhino.RhinoApp.WriteLine(u"BKID_AutoCrop_SixView: {0}".format(error))
         Rhino.RhinoApp.WriteLine(traceback.format_exc())

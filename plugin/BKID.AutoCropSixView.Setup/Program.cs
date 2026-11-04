@@ -41,7 +41,7 @@ namespace BKID.AutoCropSixView.Setup
         private bool busy;
         public SetupWindow()
         {
-            Text = "AutoCrop_SixView 3.1.0 설치";
+            Text = "BKID_AutoCrop_SixView 3.1.1 설치";
             ClientSize = new Size(760, 420);
             Padding = new Padding(0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -53,7 +53,7 @@ namespace BKID.AutoCropSixView.Setup
             var content = new Panel { Dock = DockStyle.Fill, Padding = new Padding(24) };
             var title = new Label
             {
-                Text = "AutoCrop_SixView 설치",
+                Text = "BKID_AutoCrop_SixView 설치",
                 Dock = DockStyle.Top,
                 Height = 54,
                 Font = new Font(SystemFonts.MessageBoxFont.FontFamily, 16, FontStyle.Bold)
@@ -66,7 +66,7 @@ namespace BKID.AutoCropSixView.Setup
                 Dock = DockStyle.Left,
                 Width = (int)Math.Round(ClientSize.Height * (double)logo.Width / logo.Height),
                 Padding = new Padding(0),
-                BackColor = Color.White
+                BackColor = Color.FromArgb(6, 8, 14)
             };
             artwork.Controls.Add(new PictureBox
             {
@@ -97,7 +97,7 @@ namespace BKID.AutoCropSixView.Setup
                     reinstaller.IsInstalled,
                     () => MessageBox.Show(this,
                         "SixView가 설치되어 있습니다. SixView만 다시 설치할까요?\r\n\r\n기존 버전은 백업하지 않습니다. 새 설치가 취소되거나 실패하면 자동 복원되지 않습니다.",
-                        "AutoCrop_SixView 재설치", MessageBoxButtons.YesNo,
+                        "BKID_AutoCrop_SixView 재설치", MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes,
                     reinstaller.Run);
                 if (!completed)
@@ -112,7 +112,7 @@ namespace BKID.AutoCropSixView.Setup
             catch (Exception error)
             {
                 status.Text = "설치하지 못했습니다. 아래 오류를 확인하세요.\r\n이전 버전은 백업하거나 자동 복원하지 않습니다.";
-                MessageBox.Show(this, error.Message, "AutoCrop_SixView 설치", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, error.Message, "BKID_AutoCrop_SixView 설치", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 install.Enabled = true;
             }
             finally { busy = false; }
@@ -148,7 +148,7 @@ namespace BKID.AutoCropSixView.Setup
             if (Process.GetProcessesByName("Rhino").Length != 0)
                 throw new InvalidOperationException("열려 있는 Rhino를 모두 종료한 뒤 다시 설치하세요. 작업은 아직 변경하지 않았습니다.");
             InstallWorkflow.RequireConsent(IsInstalled(), replacementAllowed);
-            string temporary = Path.Combine(Path.GetTempPath(), "AutoCrop_SixView_Setup_" + Guid.NewGuid().ToString("N"));
+            string temporary = Path.Combine(Path.GetTempPath(), "BKID_AutoCrop_SixView_Setup_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(temporary);
             try { Install(temporary, replacementAllowed); }
             finally
@@ -162,7 +162,7 @@ namespace BKID.AutoCropSixView.Setup
 
         private void Install(string temporary, bool replacementAllowed)
         {
-            string package = Path.Combine(temporary, "AutoCrop_SixView_3.1.0.rhi");
+            string package = Path.Combine(temporary, "BKID_AutoCrop_SixView_3.1.1.rhi");
             using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream("BKID.Setup.Package.rhi"))
             using (var output = File.Create(package)) input.CopyTo(output);
             byte[] expectedPlugin;
@@ -199,8 +199,8 @@ namespace BKID.AutoCropSixView.Setup
                 files.Add(Path.ChangeExtension(file, ".rui"));
             }
             // Only this independent plugin's current runtime belongs to SixView.
-            foreach (var name in new[] { "AutoCrop_SixView.py", "AutoCrop_SixView_x1.py", "AutoCrop_SixView_x2.py", "AutoCrop_SixView_x3.py", "AutoCrop_SixView_x4.py" })
-                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "AutoCrop_SixView", "runtime", "3.1.0", name));
+            foreach (var name in new[] { "BKID_AutoCrop_SixView.py", "BKID_AutoCrop_SixView_x1.py", "BKID_AutoCrop_SixView_x2.py", "BKID_AutoCrop_SixView_x3.py", "BKID_AutoCrop_SixView_x4.py" })
+                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.1", name));
             managed.Validate(files);
             // A new installation may have appeared since the wizard checked.
             InstallWorkflow.RequireConsent(IsInstalled(), replacementAllowed);

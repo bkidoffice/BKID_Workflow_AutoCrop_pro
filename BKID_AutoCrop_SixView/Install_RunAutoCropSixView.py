@@ -9,8 +9,8 @@ import traceback
 
 # The release builder replaces this marker with the complete embedded payload.
 EMBEDDED_FILES = None
-MANAGED_FILES = ("AutoCrop_SixView.py", "AutoCrop_SixView.rui",
-                 "assets/AutoCrop_SixView_Icon.svg", "assets/icon_32.png", "Show_AutoCropSixView.py")
+MANAGED_FILES = ("BKID_AutoCrop_SixView.py", "BKID_AutoCrop_SixView.rui",
+                 "assets/BKID_AutoCrop_SixView_Icon.svg", "assets/icon_32.png", "Show_AutoCropSixView.py")
 
 
 def payload():
@@ -48,10 +48,10 @@ def show_native_toolbar(path, toolbar_files):
         toolbar = toolbar_files.Open(path)
     if toolbar is None:
         raise RuntimeError("Toolbar file could not be opened: " + path)
-    group = toolbar.GetGroup("AutoCrop_SixView")
+    group = toolbar.GetGroup("BKID_AutoCrop_SixView")
     if group is None:
         names = [toolbar.GetGroup(i).Name for i in range(toolbar.GroupCount)]
-        raise RuntimeError("AutoCrop_SixView group missing; loaded groups: " + repr(names))
+        raise RuntimeError("BKID_AutoCrop_SixView group missing; loaded groups: " + repr(names))
     group.Visible = True
     if not group.Visible:
         raise RuntimeError("Rhino did not make the toolbar group visible")
@@ -79,15 +79,15 @@ def install():
     files = payload()  # Check the entire package before changing an existing install.
     folder = os.path.join(System.Environment.GetFolderPath(
         System.Environment.SpecialFolder.ApplicationData),
-        "BKID", "AutoCrop_SixView", "Rhino{0}".format(version))
+        "BKID", "BKID_AutoCrop_SixView", "Rhino{0}".format(version))
     if not os.path.isdir(folder):
         os.makedirs(folder)
-    rui = os.path.join(folder, "AutoCrop_SixView.rui")
-    backup = tempfile.mkdtemp(prefix="AutoCrop_SixView_backup_")
+    rui = os.path.join(folder, "BKID_AutoCrop_SixView.rui")
+    backup = tempfile.mkdtemp(prefix="BKID_AutoCrop_SixView_backup_")
     old_alias = rs.AliasMacro("RunAutoCropSixView") if rs.IsAlias("RunAutoCropSixView") else None
     old_launcher_alias = rs.AliasMacro("ShowAutoCropSixView") if rs.IsAlias("ShowAutoCropSixView") else None
     old_collection = rs.IsToolbarCollection(rui)
-    toolbar_changed = not same_file(rui, files["AutoCrop_SixView.rui"])
+    toolbar_changed = not same_file(rui, files["BKID_AutoCrop_SixView.rui"])
     closed = False
     written = []
     try:
@@ -112,7 +112,7 @@ def install():
             written.append(name)
             with open(target, "wb") as stream:
                 stream.write(files[name])
-        macro = u'! _-RunPythonScript "{0}"'.format(os.path.join(folder, "AutoCrop_SixView.py"))
+        macro = u'! _-RunPythonScript "{0}"'.format(os.path.join(folder, "BKID_AutoCrop_SixView.py"))
         if rs.IsAlias("RunAutoCropSixView"):
             rs.AliasMacro("RunAutoCropSixView", macro)
         else:
@@ -138,7 +138,7 @@ def install():
         # Restore only files and the alias this installer owns.
         try:
             current = rs.IsToolbarCollection(rui)
-            if current and ("AutoCrop_SixView.rui" in written or closed):
+            if current and ("BKID_AutoCrop_SixView.rui" in written or closed):
                 close_toolbar(rui, Rhino.RhinoApp.ToolbarFiles)
             for name in written:
                 target = os.path.join(folder, *name.split('/'))
@@ -180,4 +180,4 @@ if __name__ == "__main__":
         install()
     except Exception:
         import Rhino
-        Rhino.RhinoApp.WriteLine(u"AutoCrop_SixView 설치 실패:\n" + traceback.format_exc())
+        Rhino.RhinoApp.WriteLine(u"BKID_AutoCrop_SixView 설치 실패:\n" + traceback.format_exc())

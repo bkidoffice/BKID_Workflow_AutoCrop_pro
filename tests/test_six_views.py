@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class SixViewTests(unittest.TestCase):
     def setUp(self):
-        spec = importlib.util.spec_from_file_location('six_views', ROOT / 'AutoCrop_SixView/AutoCrop_SixView.py')
+        spec = importlib.util.spec_from_file_location('six_views', ROOT / 'BKID_AutoCrop_SixView/BKID_AutoCrop_SixView.py')
         self.m = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.m)
 

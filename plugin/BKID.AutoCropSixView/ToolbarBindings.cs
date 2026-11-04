@@ -45,7 +45,7 @@ namespace BKID.AutoCropSixView
         private static bool UpdateDescriptions(XElement target, XElement source)
         {
             bool changed = false;
-            foreach (string name in new[] { "tooltip", "help_text" })
+            foreach (string name in new[] { "tooltip", "help_text", "text", "button_text", "menu_text" })
             {
                 var expected = source.Element(name);
                 if (expected == null) continue;
@@ -113,6 +113,33 @@ namespace BKID.AutoCropSixView
                     changed = true;
                 }
                 else changed = UpdateDescriptions(actual, expected) || changed;
+            }
+            // Refresh our own saved collection's name and artwork after an update.
+            // External collections with copied buttons keep their own bitmaps/layout.
+            if (string.Equals((string)document.Root.Attribute("guid"),
+                              (string)source.Root.Attribute("guid"), StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (var expected in source.Descendants().Where(e =>
+                    e.Name == "tool_bar_group" || e.Name == "tool_bar_group_item" || e.Name == "tool_bar"))
+                {
+                    string id = (string)expected.Attribute("guid");
+                    var actual = document.Descendants(expected.Name).FirstOrDefault(e =>
+                        string.Equals((string)e.Attribute("guid"), id, StringComparison.OrdinalIgnoreCase));
+                    var caption = expected.Element("text");
+                    if (actual != null && caption != null && !XNode.DeepEquals(actual.Element("text"), caption))
+                    {
+                        if (actual.Element("text") == null) actual.Add(new XElement(caption));
+                        else actual.Element("text").ReplaceWith(new XElement(caption));
+                        changed = true;
+                    }
+                }
+                var artwork = source.Root.Element("bitmaps");
+                if (artwork != null && !XNode.DeepEquals(document.Root.Element("bitmaps"), artwork))
+                {
+                    if (document.Root.Element("bitmaps") == null) document.Root.Add(new XElement(artwork));
+                    else document.Root.Element("bitmaps").ReplaceWith(new XElement(artwork));
+                    changed = true;
+                }
             }
             if (!changed) return null;
             if (macros.Parent == null)

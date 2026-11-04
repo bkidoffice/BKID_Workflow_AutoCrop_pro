@@ -17,7 +17,7 @@ def show():
     image = drawing.Bitmap(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                        'assets', 'icon_32.png'))
     window = forms.Form()
-    window.Title = 'AutoCrop_SixView'
+    window.Title = 'BKID_AutoCrop_SixView'
     window.Resizable = False
     window.Padding = drawing.Padding(12)
     window.Owner = Rhino.UI.RhinoEtoApp.MainWindow

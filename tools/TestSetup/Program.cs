@@ -115,7 +115,7 @@ try
     var coexist = Path.Combine(root, "coexist");
     Directory.CreateDirectory(coexist);
     var original = Path.Combine(coexist, "AutoCrop");
-    var six = Path.Combine(coexist, "AutoCrop_SixView");
+    var six = Path.Combine(coexist, "BKID_AutoCrop_SixView");
     Directory.CreateDirectory(original);
     Directory.CreateDirectory(six);
     var originalPlugin = Path.Combine(original, "BKID.AutoCrop.rhp");

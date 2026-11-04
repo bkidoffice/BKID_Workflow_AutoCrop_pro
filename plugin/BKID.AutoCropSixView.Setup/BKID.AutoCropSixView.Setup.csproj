@@ -2,15 +2,15 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>AutoCrop_SixView_Setup_3.1.0</AssemblyName>
-    <Version>3.1.0</Version>
-    <AssemblyTitle>AutoCrop_SixView Setup</AssemblyTitle>
+    <AssemblyName>BKID_AutoCrop_SixView_Setup_3.1.1</AssemblyName>
+    <Version>3.1.1</Version>
+    <AssemblyTitle>BKID_AutoCrop_SixView Setup</AssemblyTitle>
     <Company>BKID</Company>
     <LangVersion>7.3</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-    <ApplicationIcon>../../AutoCrop_SixView/assets/AutoCrop_SixView.ico</ApplicationIcon>
+    <ApplicationIcon>../../BKID_AutoCrop_SixView/assets/BKID_AutoCrop_SixView.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
@@ -18,7 +18,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
-    <EmbeddedResource Include="../../installers/AutoCrop_SixView_3.1.0.rhi" LogicalName="BKID.Setup.Package.rhi" />
-    <EmbeddedResource Include="../../AutoCrop_SixView/assets/WizardImage.png" LogicalName="BKID.Setup.Logo.png" />
+    <EmbeddedResource Include="../../installers/BKID_AutoCrop_SixView_3.1.1.rhi" LogicalName="BKID.Setup.Package.rhi" />
+    <EmbeddedResource Include="../../BKID_AutoCrop_SixView/assets/WizardImage.png" LogicalName="BKID.Setup.Logo.png" />
   </ItemGroup>
 </Project>

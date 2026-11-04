@@ -75,3 +75,14 @@ try { ToolbarBindings.Patch("<!DOCTYPE RhinoUI [<!ENTITY x SYSTEM 'file:///never
 catch (XmlException) { dtdRejected = true; }
 Assert(dtdRejected, "DTD must not be read.");
 Console.WriteLine("PASS: copied native button recognized, unrelated collection skipped and external-entity XML rejected.");
+
+// Existing 3.1.0 toolbar must pick up the new label/art while retaining docking.
+var priorBranding = XDocument.Parse(template);
+priorBranding.Descendants("tool_bar_group").First().Element("text")!.SetElementValue("locale_1033", "AutoCrop_SixView");
+priorBranding.Descendants("bitmaps").First().Descendants("bitmap").First().Value = "old-icon-bytes";
+string branded = ToolbarBindings.Patch(priorBranding.ToString(), template)!;
+Assert(branded != null, "Saved toolbar branding was not refreshed.");
+var refreshedBranding = XDocument.Parse(branded);
+Assert(refreshedBranding.Descendants("tool_bar_group").First().Element("text")!.Value == "BKID_AutoCrop_SixView", "Saved group name not migrated.");
+Assert(XNode.DeepEquals(refreshedBranding.Root!.Element("bitmaps"), XDocument.Parse(template).Root!.Element("bitmaps")), "New white/black artwork not migrated.");
+Console.WriteLine("PASS: owned saved toolbar receives new name/artwork after update.");

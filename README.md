@@ -1,21 +1,23 @@
-# AutoCrop_SixView — 3.1.0
+# BKID_AutoCrop_SixView — 3.1.1
 
 Windows Rhino 6 / 8용 플러그인. 기존 방식의 툴바·파란색 프레임·EXE → Rhino Installer 설치 흐름을 유지하고 6개 정투상을 투명 PNG로 출력합니다.
 
-[설치 EXE 다운로드](https://github.com/bkidoffice/BKID_Workflow_AutoCrop_pro/raw/refs/heads/main/installers/AutoCrop_SixView_Setup_3.1.0.exe)
+[설치 EXE 다운로드](https://github.com/bkidoffice/BKID_Workflow_AutoCrop_pro/raw/refs/heads/main/installers/BKID_AutoCrop_SixView_Setup_3.1.1.exe)
 
 ## 설치
 
 1. Rhino를 모두 종료합니다.
-2. `installers/AutoCrop_SixView_Setup_3.1.0.exe`를 실행합니다.
+2. `installers/BKID_AutoCrop_SixView_Setup_3.1.1.exe`를 실행합니다.
 3. Rhino Installer에서 현재 사용자 설치를 완료합니다. 기존 AutoCrop을 제거할 필요가 없습니다.
 4. Rhino를 시작합니다. 툴바가 닫혀 있으면 `BKIDAutoCropSixView`을 실행합니다.
 
-기존 **BKID AutoCrop과 나란히 설치되는 독립 플러그인**입니다. 별도 플러그인 ID·명령어·툴바·설정·실행 경로를 사용하며 AutoCrop의 파일·레지스트리·버튼·별칭을 삭제하거나 변경하지 않습니다. SixView가 이미 설치된 경우에는 SixView만 재설치합니다. 재설치가 취소되거나 실패해도 이전 AutoCrop_SixView 버전은 자동 복원되지 않습니다. RHI 직접 설치도 가능합니다.
+기존 **BKID AutoCrop과 나란히 설치되는 독립 플러그인**입니다. 별도 플러그인 ID·명령어·툴바·설정·실행 경로를 사용하며 AutoCrop의 파일·레지스트리·버튼·별칭을 삭제하거나 변경하지 않습니다. SixView가 이미 설치된 경우에는 SixView만 재설치합니다. 재설치가 취소되거나 실패해도 이전 BKID_AutoCrop_SixView 버전은 자동 복원되지 않습니다. RHI 직접 설치도 가능합니다.
 
-툴바 이름은 **AutoCrop_SixView**, 아이콘은 기존 파란색 크롭 프레임 안에 검은 네모 3개를 배치한 삼면도입니다. 명령어는 `BKIDAutoCropSixView`, `BKIDAutoCropSixViewCapture`, `BKIDAutoCropSixViewResolution`, `BKIDAutoCropSixViewFolder`입니다. 기본 저장 폴더는 바탕화면 `AutoCrop_SixView_Captures`입니다.
+툴바 이름은 **BKID_AutoCrop_SixView**, 아이콘은 기존 파란색 크롭 프레임 안에 흰색 채움·검정 테두리 사각형 3개를 배치한 삼면도입니다. 명령어는 `BKIDAutoCropSixView`, `BKIDAutoCropSixViewCapture`, `BKIDAutoCropSixViewResolution`, `BKIDAutoCropSixViewFolder`입니다. 기본 저장 폴더는 바탕화면 `BKID_AutoCrop_SixView_Captures`입니다.
 
-이전에 배포한 AutoCrop 3.0.0은 교체 방식이므로 사용하지 마세요. 3.0.0이 이미 원래 AutoCrop을 교체했다면 원본 저장소의 AutoCrop 2.5.3 설치기로 원래 기능을 복구하고, 이 AutoCrop_SixView 3.1.0을 추가 설치하세요. AutoCrop_SixView 설치기는 AutoCrop 3.0.0도 자동 삭제하지 않습니다.
+이전에 배포한 AutoCrop 3.0.0은 교체 방식이므로 사용하지 마세요. 3.0.0이 이미 원래 AutoCrop을 교체했다면 원본 저장소의 AutoCrop 2.5.3 설치기로 원래 기능을 복구하고, 이 BKID_AutoCrop_SixView 3.1.1을 추가 설치하세요. BKID_AutoCrop_SixView 설치기는 AutoCrop 3.0.0도 자동 삭제하지 않습니다.
+
+설치 마법사는 원래 AutoCrop의 이미지·배치·배경색을 사용하며, 제품명은 BKID_AutoCrop_SixView로 표시합니다. 기존 SixView 3.1.0에서 업데이트하면 저장된 툴바의 이름과 아이콘도 갱신합니다.
 
 ## 사용
 
@@ -42,7 +44,7 @@ python3 -m unittest discover -s tests -p 'test_capture_scale.py' -v
 python3 -m unittest discover -s tests -p 'test_six_views.py' -v
 ```
 
-전체 테스트 중 과거 Python 설치기 검사는 `dist/Install_AutoCrop_SixView.py` 생성이 필요합니다. 권장 배포는 EXE/RHI입니다. 기존 아이콘을 재생성하지 않고 테스트용 Python 설치기를 준비하는 방법:
+전체 테스트 중 과거 Python 설치기 검사는 `dist/Install_BKID_AutoCrop_SixView.py` 생성이 필요합니다. 권장 배포는 EXE/RHI입니다. 기존 아이콘을 재생성하지 않고 테스트용 Python 설치기를 준비하는 방법:
 
 ```sh
 python3 -c 'import tools.build_release as b; b.build_rui = lambda: None; b.main()'

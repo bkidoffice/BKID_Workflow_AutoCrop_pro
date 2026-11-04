@@ -40,7 +40,7 @@ class ToolbarHost:
             return self.close_result
         host = self
         class Group:
-            Name = 'AutoCrop_SixView'
+            Name = 'BKID_AutoCrop_SixView'
             @property
             def Visible(self): return not host.fail_show and host.open.get(path) in host.visible
             @Visible.setter
@@ -65,8 +65,8 @@ class ToolbarHost:
         return True
     def OpenToolbarCollection(self, path):
         ET.parse(path)
-        self.open[path] = 'AutoCrop_SixView'
-        return 'AutoCrop_SixView'
+        self.open[path] = 'BKID_AutoCrop_SixView'
+        return 'BKID_AutoCrop_SixView'
     def ShowToolbar(self, name, group):
         if self.fail_show: return False
         self.visible.add(name)
@@ -85,7 +85,7 @@ class InstallerTests(unittest.TestCase):
             GetFolderPath=lambda unused: self.temp.name), PlatformID=SimpleNamespace(Win32NT=1))
         rhino = SimpleNamespace(RhinoApp=SimpleNamespace(Version=SimpleNamespace(Major=8), WriteLine=self.log.append, ToolbarFiles=self.host))
         self.mods = {'System': system, 'Rhino': rhino, 'rhinoscriptsyntax': self.host}
-        self.module = load(ROOT / 'dist/Install_AutoCrop_SixView.py')
+        self.module = load(ROOT / 'dist/Install_BKID_AutoCrop_SixView.py')
         self.module.show_logo_window = Mock(side_effect=RuntimeError('UI unavailable'))
 
     def install(self):
@@ -95,20 +95,20 @@ class InstallerTests(unittest.TestCase):
     def test_standalone_repeat_install_and_move(self):
         folder = self.install()
         for name in self.module.MANAGED_FILES:
-            self.assertEqual((folder / name).read_bytes(), (ROOT / 'AutoCrop_SixView' / name).read_bytes())
-        self.assertIn(str(folder / 'AutoCrop_SixView.py'), self.host.aliases['RunAutoCropSixView'])
+            self.assertEqual((folder / name).read_bytes(), (ROOT / 'BKID_AutoCrop_SixView' / name).read_bytes())
+        self.assertIn(str(folder / 'BKID_AutoCrop_SixView.py'), self.host.aliases['RunAutoCropSixView'])
         self.assertEqual(len(self.host.open), 1)
         (folder / 'user_notes.txt').write_text('keep')
         self.assertEqual(self.install(), folder)
         self.assertEqual(len(self.host.open), 1)
         self.assertEqual((folder / 'user_notes.txt').read_text(), 'keep')
         # The standalone installer does not read files beside itself.
-        self.module.__file__ = '/nonexistent/moved/Install_AutoCrop_SixView.py'
+        self.module.__file__ = '/nonexistent/moved/Install_BKID_AutoCrop_SixView.py'
         self.assertEqual(self.install(), folder)
 
     def test_failed_update_restores_previous_files_and_alias(self):
         folder = self.install()
-        target = folder / 'AutoCrop_SixView.py'
+        target = folder / 'BKID_AutoCrop_SixView.py'
         target.write_bytes(b'previous installation')
         self.host.aliases['RunAutoCropSixView'] = 'previous macro'
         self.host.fail_show = True
@@ -127,10 +127,10 @@ class InstallerTests(unittest.TestCase):
 
     def test_missing_payload_leaves_old_install_untouched(self):
         folder = self.install()
-        before = (folder / 'AutoCrop_SixView.py').read_bytes()
-        del self.module.EMBEDDED_FILES['AutoCrop_SixView.rui']
+        before = (folder / 'BKID_AutoCrop_SixView.py').read_bytes()
+        del self.module.EMBEDDED_FILES['BKID_AutoCrop_SixView.rui']
         with self.assertRaises(KeyError): self.install()
-        self.assertEqual((folder / 'AutoCrop_SixView.py').read_bytes(), before)
+        self.assertEqual((folder / 'BKID_AutoCrop_SixView.py').read_bytes(), before)
         self.assertEqual(len(self.host.open), 1)
 
     def test_rhino6_uses_separate_folder(self):
@@ -150,21 +150,21 @@ class InstallerTests(unittest.TestCase):
 
     def test_changed_toolbar_closes_by_path_with_void_return(self):
         folder = self.install()
-        (folder / 'AutoCrop_SixView.rui').write_bytes(b'<RhinoUI />')
+        (folder / 'BKID_AutoCrop_SixView.rui').write_bytes(b'<RhinoUI />')
         self.host.close_result = None
         self.install()
         self.assertEqual(self.host.close_calls, 1)
-        self.assertEqual((folder / 'AutoCrop_SixView.rui').read_bytes(),
-                         (ROOT / 'AutoCrop_SixView/AutoCrop_SixView.rui').read_bytes())
+        self.assertEqual((folder / 'BKID_AutoCrop_SixView.rui').read_bytes(),
+                         (ROOT / 'BKID_AutoCrop_SixView/BKID_AutoCrop_SixView.rui').read_bytes())
 
     def test_close_refusal_preserves_previous_install(self):
         folder = self.install()
         old = b'<RhinoUI />'
-        (folder / 'AutoCrop_SixView.rui').write_bytes(old)
+        (folder / 'BKID_AutoCrop_SixView.rui').write_bytes(old)
         self.host.refuse_close = True
         with self.assertRaisesRegex(RuntimeError, 'Rhino'):
             self.install()
-        self.assertEqual((folder / 'AutoCrop_SixView.rui').read_bytes(), old)
+        self.assertEqual((folder / 'BKID_AutoCrop_SixView.rui').read_bytes(), old)
         self.assertEqual(len(self.host.open), 1)
 
     def test_native_show_does_not_use_name_based_lookup(self):
@@ -208,7 +208,7 @@ class InstallerTests(unittest.TestCase):
                        scriptcontext=SimpleNamespace(sticky=sticky))
         modules.update({'Eto.Forms': forms, 'Eto.Drawing': drawing})
         with patch.dict(sys.modules, modules):
-            launcher = load(ROOT / 'AutoCrop_SixView/Show_AutoCropSixView.py')
+            launcher = load(ROOT / 'BKID_AutoCrop_SixView/Show_AutoCropSixView.py')
             form = launcher.show()
             self.assertTrue(form.shown)
             self.assertIs(launcher.show(), form)
@@ -221,7 +221,7 @@ class InstallerTests(unittest.TestCase):
             self.assertIsNot(launcher.show(), form)
 
     def test_toolbar_icon_and_macro_references(self):
-        rui = ET.parse(ROOT / 'AutoCrop_SixView/AutoCrop_SixView.rui').getroot()
+        rui = ET.parse(ROOT / 'BKID_AutoCrop_SixView/BKID_AutoCrop_SixView.rui').getroot()
         macro = rui.find('macros/macro_item')
         self.assertEqual(macro.findtext('script'), '! RunAutoCropSixView')
         self.assertEqual(rui.findtext('tool_bars/tool_bar/tool_bar_item/left_macro_id'), macro.get('guid'))

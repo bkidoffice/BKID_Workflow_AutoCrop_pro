@@ -9,7 +9,7 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '3.1.0'
+VERSION = '3.1.1'
 PROJECT = ROOT / 'plugin/BKID.AutoCropSixView/BKID.AutoCropSixView.csproj'
 
 
@@ -29,11 +29,11 @@ def main():
     binary = PROJECT.parent / 'bin/Release/net45/BKID.AutoCropSixView.rhp'
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'),
                     '-c', 'Release', '--', str(binary),
-                    str(ROOT / 'AutoCrop_SixView/AutoCrop_SixView.py'),
-                    str(ROOT / 'AutoCrop_SixView/assets/icon_64.png')], check=True)
+                    str(ROOT / 'BKID_AutoCrop_SixView/BKID_AutoCrop_SixView.py'),
+                    str(ROOT / 'BKID_AutoCrop_SixView/assets/icon_64.png')], check=True)
     destination = ROOT / 'installers'
     destination.mkdir(exist_ok=True)
-    installer = destination / ('AutoCrop_SixView_' + VERSION + '.rhi')
+    installer = destination / ('BKID_AutoCrop_SixView_' + VERSION + '.rhi')
     with zipfile.ZipFile(installer, 'w', zipfile.ZIP_DEFLATED) as archive:
         info = zipfile.ZipInfo('BKID.AutoCropSixView.rhp', date_time=(2026, 1, 1, 0, 0, 0))
         info.compress_type = zipfile.ZIP_DEFLATED
@@ -50,8 +50,8 @@ def main():
     setup_project = ROOT / 'plugin/BKID.AutoCropSixView.Setup/BKID.AutoCropSixView.Setup.csproj'
     subprocess.run([args.dotnet, 'restore', str(setup_project), '--locked-mode'], check=True)
     subprocess.run([args.dotnet, 'build', str(setup_project), '-c', 'Release', '--no-restore'], check=True)
-    setup_binary = setup_project.parent / 'bin/Release/net45' / ('AutoCrop_SixView_Setup_' + VERSION + '.exe')
-    subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'), '-c', 'Release', '--', '--setup', str(setup_binary), str(installer), str(ROOT / 'AutoCrop_SixView/assets/WizardImage.png')], check=True)
+    setup_binary = setup_project.parent / 'bin/Release/net45' / ('BKID_AutoCrop_SixView_Setup_' + VERSION + '.exe')
+    subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/VerifyPlugin'), '-c', 'Release', '--', '--setup', str(setup_binary), str(installer), str(ROOT / 'BKID_AutoCrop_SixView/assets/WizardImage.png')], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestSetup'), '-c', 'Release'], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestCapture'), '-c', 'Release', '--', sys.executable], check=True)
     subprocess.run([args.dotnet, 'run', '--project', str(ROOT / 'tools/TestToolbar'), '-c', 'Release', '--', str(toolbar)], check=True)

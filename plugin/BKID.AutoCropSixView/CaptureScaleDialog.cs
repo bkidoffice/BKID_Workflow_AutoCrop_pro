@@ -24,7 +24,7 @@ namespace BKID.AutoCropSixView
                 }
                 catch (Exception error)
                 {
-                    MessageBox.Show(this, "저장 폴더를 변경하지 못했습니다.\n" + error.Message, "AutoCrop_SixView");
+                    MessageBox.Show(this, "저장 폴더를 변경하지 못했습니다.\n" + error.Message, "BKID_AutoCrop_SixView");
                 }
             };
             layout.AddRow(changeFolder);

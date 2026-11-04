@@ -13,7 +13,7 @@ namespace BKID.AutoCropSixView
     [Guid("EBA693A2-8ACF-5DC1-9A01-FC9CCB4D3DE0")]
     public sealed class SixViewPlugin : PlugIn
     {
-        private const string BindingRevision = "six-view-3.1.0";
+        private const string BindingRevision = "six-view-3.1.1";
         private const string BindingRevisionKey = "ToolbarBindingRevision";
         private const string ToolbarInitializedKey = "NativeToolbarInitialized";
         private const string CaptureOutputFolderKey = "CaptureOutputFolder";
@@ -26,7 +26,7 @@ namespace BKID.AutoCropSixView
 
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
-            RhinoApp.WriteLine("AutoCrop_SixView " + GetType().Assembly.GetName().Version + " loaded | Rhino " + RhinoApp.Version + " | CLR " + Environment.Version);
+            RhinoApp.WriteLine("BKID_AutoCrop_SixView " + GetType().Assembly.GetName().Version + " loaded | Rhino " + RhinoApp.Version + " | CLR " + Environment.Version);
             // Afterwards Rhino restores the user's docking and visibility state.
             if (!Settings.GetBool(ToolbarInitializedKey, false) || Settings.GetString(BindingRevisionKey, "") != BindingRevision)
             {
@@ -62,7 +62,7 @@ namespace BKID.AutoCropSixView
                 if (startupAttempts >= 5)
                 {
                     StopWaitingForStartup();
-                    RhinoApp.WriteLine("AutoCrop_SixView toolbar startup: " + error);
+                    RhinoApp.WriteLine("BKID_AutoCrop_SixView toolbar startup: " + error);
                     RhinoApp.WriteLine("Run BKIDAutoCropSixView to retry opening the toolbar.");
                 }
             }
@@ -86,15 +86,15 @@ namespace BKID.AutoCropSixView
         internal void ShowToolbar()
         {
             var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "BKID.AutoCropSixView.rui");
-            if (!File.Exists(path)) throw new FileNotFoundException("Reinstall AutoCrop_SixView: toolbar sidecar missing.", path);
+            if (!File.Exists(path)) throw new FileNotFoundException("Reinstall BKID_AutoCrop_SixView: toolbar sidecar missing.", path);
             var toolbar = RhinoApp.ToolbarFiles.FindByPath(path) ?? RhinoApp.ToolbarFiles.Open(path);
             if (toolbar == null) throw new InvalidOperationException("Rhino could not open toolbar: " + path);
-            var group = toolbar.GetGroup("AutoCrop_SixView");
+            var group = toolbar.GetGroup("BKID_AutoCrop_SixView");
             if (group == null)
             {
                 var names = new System.Collections.Generic.List<string>();
                 for (int i = 0; i < toolbar.GroupCount; i++) names.Add(toolbar.GetGroup(i).Name);
-                throw new InvalidOperationException("AutoCrop_SixView toolbar group unavailable; groups: " + string.Join(", ", names));
+                throw new InvalidOperationException("BKID_AutoCrop_SixView toolbar group unavailable; groups: " + string.Join(", ", names));
             }
             group.Visible = true;
             if (!group.Visible) throw new InvalidOperationException("Rhino did not display the SixView toolbar group.");
@@ -109,7 +109,7 @@ namespace BKID.AutoCropSixView
             {
                 string saved = Settings.GetString(CaptureOutputFolderKey, "");
                 return string.IsNullOrWhiteSpace(saved)
-                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "AutoCrop_SixView_Captures")
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "BKID_AutoCrop_SixView_Captures")
                     : saved;
             }
         }
@@ -134,16 +134,16 @@ namespace BKID.AutoCropSixView
         {
             if (scale < 1 || scale > 4) throw new ArgumentOutOfRangeException("scale");
             var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                      "BKID", "AutoCrop_SixView", "runtime", "3.1.0");
+                                      "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.1");
             Directory.CreateDirectory(folder);
-            var target = Path.Combine(folder, "AutoCrop_SixView.py");
+            var target = Path.Combine(folder, "BKID_AutoCrop_SixView.py");
             using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream("BKID.AutoCropSixView.Capture.py"))
             {
                 if (input == null) throw new InvalidOperationException("Missing embedded capture script.");
                 using (var output = new FileStream(target, FileMode.Create, FileAccess.Write, FileShare.Read))
                     input.CopyTo(output);
             }
-            var runner = Path.Combine(folder, "AutoCrop_SixView_x" + scale + ".py");
+            var runner = Path.Combine(folder, "BKID_AutoCrop_SixView_x" + scale + ".py");
             File.WriteAllText(runner, CaptureRunner.Build(scale, CaptureOutputFolder), new System.Text.UTF8Encoding(false));
             return runner;
         }
@@ -162,7 +162,7 @@ namespace BKID.AutoCropSixView
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             try { SixViewPlugin.Instance.ShowToolbar(); return Result.Success; }
-            catch (Exception error) { RhinoApp.WriteLine("AutoCrop_SixView: " + error); return Result.Failure; }
+            catch (Exception error) { RhinoApp.WriteLine("BKID_AutoCrop_SixView: " + error); return Result.Failure; }
         }
     }
 
@@ -229,7 +229,7 @@ namespace BKID.AutoCropSixView
                 if (scale < 2 || scale > 4) return Result.Cancel;
                 return CaptureExecution.Run(doc, scale);
             }
-            catch (Exception error) { RhinoApp.WriteLine("AutoCrop_SixView: " + error); return Result.Failure; }
+            catch (Exception error) { RhinoApp.WriteLine("BKID_AutoCrop_SixView: " + error); return Result.Failure; }
         }
     }
 
@@ -246,7 +246,7 @@ namespace BKID.AutoCropSixView
                     RhinoApp.WriteLine("SixView: _RunPythonScript를 실행하지 못했습니다. RhinoPython 활성 상태와 F2 명령 기록을 확인해 주세요.");
                 return started ? Result.Success : Result.Failure;
             }
-            catch (Exception error) { RhinoApp.WriteLine("AutoCrop_SixView: " + error); return Result.Failure; }
+            catch (Exception error) { RhinoApp.WriteLine("BKID_AutoCrop_SixView: " + error); return Result.Failure; }
         }
     }
 }

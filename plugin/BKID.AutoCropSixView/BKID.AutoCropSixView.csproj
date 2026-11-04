@@ -4,11 +4,11 @@
     <TargetExt>.rhp</TargetExt>
     <AssemblyName>BKID.AutoCropSixView</AssemblyName>
     <RootNamespace>BKID.AutoCropSixView</RootNamespace>
-    <Version>3.1.0</Version>
-    <AssemblyTitle>AutoCrop_SixView</AssemblyTitle>
+    <Version>3.1.1</Version>
+    <AssemblyTitle>BKID_AutoCrop_SixView</AssemblyTitle>
     <Description>Transparent viewport capture with an native BKID toolbar.</Description>
     <Company>BKID</Company>
-    <Product>AutoCrop_SixView</Product>
+    <Product>BKID_AutoCrop_SixView</Product>
     <LangVersion>7.3</LangVersion>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <Deterministic>true</Deterministic>
@@ -18,8 +18,8 @@
     <Reference Include="System.Xml.Linq" />
     <PackageReference Include="RhinoCommon" Version="6.0.18016.23451" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
-    <EmbeddedResource Include="../../AutoCrop_SixView/AutoCrop_SixView.py" LogicalName="BKID.AutoCropSixView.Capture.py" />
-    <EmbeddedResource Include="../../AutoCrop_SixView/assets/icon_64.png" LogicalName="BKID.AutoCropSixView.Icon.png" />
-    <EmbeddedResource Include="../../AutoCrop_SixView/assets/AutoCrop_SixView_Icon.svg" LogicalName="BKID.AutoCropSixView.Icon.svg" />
+    <EmbeddedResource Include="../../BKID_AutoCrop_SixView/BKID_AutoCrop_SixView.py" LogicalName="BKID.AutoCropSixView.Capture.py" />
+    <EmbeddedResource Include="../../BKID_AutoCrop_SixView/assets/icon_64.png" LogicalName="BKID.AutoCropSixView.Icon.png" />
+    <EmbeddedResource Include="../../BKID_AutoCrop_SixView/assets/BKID_AutoCrop_SixView_Icon.svg" LogicalName="BKID.AutoCropSixView.Icon.svg" />
   </ItemGroup>
 </Project>
