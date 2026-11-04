@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<RhinoUI major_ver="2" minor_ver="0" guid="3e2de795-3ea4-5f2d-a375-876eec95c57c" localize="False" default_language_id="1033">
+  <extend_rhino_menus>
+    <menu guid="2466a273-3dfb-53d6-9409-6f307cfe6539">
+      <text>
+        <locale_1033>Extend Rhino Menus</locale_1033>
+      </text>
+    </menu>
+  </extend_rhino_menus>
+  <menus />
+  <tool_bar_groups>
+    <tool_bar_group guid="5bb4c595-f110-5715-9eb1-8bb0da5daaab" dock_bar_guid32="" dock_bar_guid64="" active_tool_bar_group="" single_file="False" hide_single_tab="True" point_floating="100,100">
+      <text>
+        <locale_1033>BKID AutoCrop</locale_1033>
+      </text>
+      <tool_bar_group_item guid="7512d877-a7bc-53d1-a816-ba2456b37c43" major_version="1" minor_version="1">
+        <text>
+          <locale_1033>BKID AutoCrop</locale_1033>
+        </text>
+        <tool_bar_id>5732b503-a2bc-5887-9660-b5827b515fac</tool_bar_id>
+      </tool_bar_group_item>
+    </tool_bar_group>
+  </tool_bar_groups>
+  <tool_bars>
+    <tool_bar guid="5732b503-a2bc-5887-9660-b5827b515fac" item_display_style="bitmap_only">
+      <text>
+        <locale_1033>BKID AutoCrop</locale_1033>
+      </text>
+      <tool_bar_item guid="940d1aae-c78c-5718-a743-8579defdc3a3" button_display_mode="control_only" button_style="normal">
+        <left_macro_id>e93206bd-f323-506f-aca8-5c478fd8d396</left_macro_id>
+        <right_macro_id>e93206bd-f323-506f-aca8-5c478fd8d396</right_macro_id>
+      </tool_bar_item>
+    </tool_bar>
+  </tool_bars>
+  <macros>
+    <macro_item guid="e93206bd-f323-506f-aca8-5c478fd8d396">
+      <text>
+        <locale_1033>Run AutoCrop</locale_1033>
+      </text>
+      <button_text>
+        <locale_1033>Run AutoCrop</locale_1033>
+      </button_text>
+      <menu_text>
+        <locale_1033>Run AutoCrop</locale_1033>
+      </menu_text>
+      <tooltip>
+        <locale_1033>Capture transparent PNG with 1px margin</locale_1033>
+      </tooltip>
+      <help_text>
+        <locale_1033>BKID AutoCrop for Windows Rhino 6 / 8</locale_1033>
+      </help_text>
+      <script>! RunAutoCrop</script>
+      <bitmap_id>2229a1a8-2d38-5a73-8a23-f8e803964612</bitmap_id>
+    </macro_item>
+  </macros>
+  <bitmaps>
+    <small_bitmap item_width="16" item_height="16">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAB/klEQVQ4jc2Rz0tUURTHP/f9ypkiMciRIRpbhDwsp1WbCExLiha5aDBCExTCP2O2uW4VYQZCoqtcxQzUI2wRJLTwTYY6zoiGJAyKOcLMe/e0GMdG+wPquzzncz/n3HvhX0cBkBbD+VSebmxoZTwPMpGPAE19ez1ajLHGfiUbHQAlFgA+CkiBegwEAFZAMajThpUnlNnaSO0gaoo0j0hzKNhGYUOlGpnFU0fnOjs772qtw2/vIlmgAEC3NDl2earO1AR7KM4B5xEA13UvJ5PXpp4MD18PQ83k5MTX70tLDxcXF1eJIByNqCctht23/xREua57e2RkNMivFaW4viHF9Q3JrxVlcHCo2tHRcaOR/bNBWukqvKjZ3PiVrqQ5Pv6M/gf9WLbF3Ns5rnYlrYWFL63H2brgRNra2kgk2slks0SjUbp7etnd2UFEjJNsrZAS07lTTpESE0BEUEoRj8eJxWIACIJpmopusRrZmmADB2SGX1iGYWReTbycX1lePpqSX11hZvrN+zAMPxApRUFm2Mb++wpnEN/3t3zfv/ljc7P3YiLxWikVFAuFgVwu9xmAC6oZBURqP3ZMcLq037J/f6cCkNPN860Ht9o9z9PcE5tLuy0ATQenzmpTn3iDw1QNteVU7JJTsUt2UB7yPC8AtB2WR+t1beoCAD/R/Bf5Dcks1i2CIko3AAAAAElFTkSuQmCC</bitmap>
+      <bitmap_item guid="2229a1a8-2d38-5a73-8a23-f8e803964612" index="0" />
+    </small_bitmap>
+    <normal_bitmap item_width="24" item_height="24">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAC9klEQVRIie1UTUgUYRh+3pnZcXcnQS2IILeLsIpRhzUI0v52LbQELSrqWhZWBEEQRFBd0g7iJcJI6qQh7sGwP0ylH/qjNk/OrnaRrgpJ686OOzvzdlBnd50Ro7PP6eP7np/3e+d7B1jHGiB7dZsF+WP6riuJ+cPCiPIif08+lGoG0243fmaP7wZukwUAkr07BBFlfN1NYBFJAAoCmBEm8GXXst/iJgCrcPMEy3J9iuVDWrur6B/gqZ/vlOtTjP1sFy7Yp/NL7WLm1QwqKiq2VlVVbVk9QnBoJReWg1RdXS1blnWxbu/ee3o6DSJq1zStY3p6Ws/nEYFXqnMBaRA8AKiQUllZ2RQIbHt0rvX85pqaGgDA+PiPWw+7uy/4/f4rqqoO2GQLnPdsFkPtVYg9RaXafQZeZkaUZ6FQyKPr+puzZ8/ta245BlEUC4SGYaCvrxdP+3pfxePxRgCQI9oxAh9eqPW3Lb+iFXk5BIPB4vJA4I/f50dzSwvC4UjB+devXxCNRjE7M2OOjY26tXpFi1xQXh5AQ8MRvH//DqOjI2htvQBJEvHk8WOUbdyEk6dOo/9p76pFrhnAzJA8HhwMRzA39xtdXZ3YoBSj8WgTfD7fMu3/A/I/d0lJKbZv3wFFUfLN10Qu4ATL8lzqqkD8TR8uHgMA08yuaWBapr32RuYjFiGUKVG6MEAZIH/QFmaLAOowWWwEgMnJSS0W+94ZHei3UqmUwziZ/IPoQH82EY/fscOImgHqwAxk5w2WQLk5MFVVvZbNZnt+Tk327D8Q3iNJErKmic+fPmJs9M1zXdcvqar6a1krMIgJgJxrrvMbWIWDNjU1lQBQm0wmm7xe7wMAWcMw2iYmJl47tMLSmBblPAQHiZy/CgBIJBJDoigGDcMIupoDcM6x6yviw0WRVIlFrBOE9GIof8kMK4OxWExbZskR7TgIuxZ9LZ/A5GWg7h8CsJMJOwk0D7ABAMwkARgsKIP4AAFnFi9NMhMU+3DWvQvrcMVfTkwfH8ZG0P0AAAAASUVORK5CYII=</bitmap>
+      <bitmap_item guid="2229a1a8-2d38-5a73-8a23-f8e803964612" index="0" />
+    </normal_bitmap>
+    <large_bitmap item_width="32" item_height="32">
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAECElEQVRYhe2WXWxTZRjH/+9Zz0fbwWZlMQtovAGXdqmKM2oMplFQhxoirDI1JH7BmPM7MYY7LvRKIQRxbCxeiCGyKWjoEiNZIgFMpChFG3vamMjH4ELTrbaj3+e8jxfQ7pz2nK4a7+B/1fc8X78+7/O+5wA3dL2LmVbbSZB+yG9oFMAZ+1M76jxuZZNWZ9eRgFtMBYhygFCsrEsPOg9hO+OVtcOU4Tc4AJpoTExTANZYGgW8xwgP1EYANL8MQQJgA2DW1wC0OgBC1DaCMAXgkgW1BMI6qxDzFvSSLGm5AgCUFJcbIZZrANi8Hkt7JO6YAYDSrEvCz6xcMQkmx7wBKGnsm7UCgYADQMuCAA6yzWUGKBoA5MYAPp/v4WQyGe3u7o50dXUFGgJk7QHsZ8BpDeDz+W7jnL/v99+5afDVIZTLJewdHv6eMTbJOX8jkUicq6/SLMASMBSu/W41A/j9fremae92dnZue+HFl6RVqx6q2j7asRMnT554cmxs3xpBEHZxzj9IJBJzVQeRqH6cr8o8hAFSRCkXAoDyjGttZVi8Xm9QluVP+vqCHc9s7IckSZbJCoUCvvpyAuPjBy9rmrY5Fot9CwB4ilxSIXecgbLFsvsRHGNVHHMHjrFC2eKME9GArCgd7tZWtLTYz5zD4YCiKHC6XEsz6fRzAK4ChFiuBPRYxQhWD63U/+zzCIfD2DqwGT+dPl1nj0TO4LWhIcRUFU+v72s2bcOLyKT2tnb0BTfi8qVpjI6OYHIyhIGtg+CcY9/oCDKZDDYEg/B4bsaFC+dBRGzhrP8CgK7N5NJlt2JgcAi/nI3g7bfehKIoeLx3LZavuMPkLwjC/wtgnFfGGO66eyWSySQWLV5UVxxA0x1oegaI+MJOZv2HDjxKbpnndgJAUXC9g6MsWzGVyzYH2UK6ppsBVs+2yUzeQSB3iblfMeY1d4BlZGLYQgxbIKarh52IPv90bHQuHP4RZH+pgYhwNnIG4wcP/EVEByrPXUx2E/AywPpR+ls0xthvgeH+jsfjn2WzV27/5vCh3SN79/Dp6Yt17ufP/YE9H+/SJ8a/2J1KpZbH4/FQFUxn892ouZbN+2R8bVKxHVOedG0hr9d7nyAIw/f03LuSMQan04nU7Cyi0V+/45y/rqrq77Uxzt7cMl2jaau89qdAtO51LBY7BaBH1/VNRPQhY0wDsE1V1f22uXTDH63Ja78FeU+jsSdVVfeLotgliuKKhsUBkMbm64jcBGDbAaeUvyn/hHlgAAAtZQ1HOuYAIBqNpky23pnFEOpfFrygt9mdSlsAneiiVKqvD4inSsD9VjGSrpyABn+dwdjnwhJTZ60AigBsvwWJYc7OBsIVAClbO+BuYLuh61T/AM77lhhYikeLAAAAAElFTkSuQmCC</bitmap>
+      <bitmap_item guid="2229a1a8-2d38-5a73-8a23-f8e803964612" index="0" />
+    </large_bitmap>
+  </bitmaps>
+  <scripts />
+</RhinoUI>
