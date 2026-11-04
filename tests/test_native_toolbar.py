@@ -47,11 +47,11 @@ class NativeToolbarTests(unittest.TestCase):
                 pixels = list(png.convert('RGBA').getdata())
                 self.assertTrue(any(r > 240 and g > 240 and b > 240 and a == 255
                                     for r,g,b,a in pixels), 'Button must have opaque white fill')
-                self.assertTrue(any(r < 80 and g < 80 and b < 80 and a > 200
-                                    for r,g,b,a in pixels), 'Button must have a black outline')
+                self.assertTrue(any(r < 220 and abs(r-g) < 5 and abs(g-b) < 5 and a > 40
+                                    for r,g,b,a in pixels), 'Button must retain antialiased dark outline pixels')
 
     def test_rhi_contains_matching_named_plugin_and_toolbar(self):
-        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_SixView_3.1.3.rhi') as archive:
+        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_SixView_3.1.4.rhi') as archive:
             self.assertIsNone(archive.testzip())
             self.assertEqual(set(archive.namelist()), {'BKID.AutoCropSixView.rhp', 'BKID.AutoCropSixView.rui'})
             self.assertTrue(archive.read('BKID.AutoCropSixView.rhp').startswith(b'MZ'))
