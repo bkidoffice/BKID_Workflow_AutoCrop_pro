@@ -41,7 +41,7 @@ namespace BKID.AutoCropSixView.Setup
         private bool busy;
         public SetupWindow()
         {
-            Text = "BKID_AutoCrop_SixView 3.1.4 설치";
+            Text = "BKID_AutoCrop_SixView 3.1.5 설치";
             ClientSize = new Size(760, 420);
             Padding = new Padding(0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -147,10 +147,12 @@ namespace BKID.AutoCropSixView.Setup
         {
             if (Process.GetProcessesByName("Rhino").Length != 0)
                 throw new InvalidOperationException("열려 있는 Rhino를 모두 종료한 뒤 다시 설치하세요. 작업은 아직 변경하지 않았습니다.");
+            // Resolve the actual McNeel engine before touching any old files.
+            string engine = RhinoInstallerDiscovery.Find();
             InstallWorkflow.RequireConsent(IsInstalled(), replacementAllowed);
             string temporary = Path.Combine(Path.GetTempPath(), "BKID_AutoCrop_SixView_Setup_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(temporary);
-            try { Install(temporary, replacementAllowed); }
+            try { Install(temporary, replacementAllowed, engine); }
             finally
             {
                 // Remove only this run's extracted installer, never prior installations or user output.
@@ -160,9 +162,9 @@ namespace BKID.AutoCropSixView.Setup
             }
         }
 
-        private void Install(string temporary, bool replacementAllowed)
+        private void Install(string temporary, bool replacementAllowed, string engine)
         {
-            string package = Path.Combine(temporary, "BKID_AutoCrop_SixView_3.1.4.rhi");
+            string package = Path.Combine(temporary, "BKID_AutoCrop_SixView_3.1.5.rhi");
             using (var input = Assembly.GetExecutingAssembly().GetManifestResourceStream("BKID.Setup.Package.rhi"))
             using (var output = File.Create(package)) input.CopyTo(output);
             byte[] expectedPlugin;
@@ -174,6 +176,7 @@ namespace BKID.AutoCropSixView.Setup
                 expectedToolbar = Read(zip.GetEntry("BKID.AutoCropSixView.rui"));
             }
             var verification = new InstallationVerification(expectedPlugin, expectedToolbar);
+            var start = InstallerEngineLaunch.CreateStartInfo(engine, package);
             // Discover and validate all candidates before removing any installation.
             var oldPlugins = FindInstalledPlugins().ToList();
             foreach (var version in new[] { "6.0", "8.0" })
@@ -200,7 +203,7 @@ namespace BKID.AutoCropSixView.Setup
             }
             // Only this independent plugin's current runtime belongs to SixView.
             foreach (var name in new[] { "BKID_AutoCrop_SixView.py", "BKID_AutoCrop_SixView_x1.py", "BKID_AutoCrop_SixView_x2.py", "BKID_AutoCrop_SixView_x3.py", "BKID_AutoCrop_SixView_x4.py" })
-                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.4", name));
+                files.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BKID", "BKID_AutoCrop_SixView", "runtime", "3.1.5", name));
             managed.Validate(files);
             // A new installation may have appeared since the wizard checked.
             InstallWorkflow.RequireConsent(IsInstalled(), replacementAllowed);
@@ -208,15 +211,12 @@ namespace BKID.AutoCropSixView.Setup
             {
                 foreach (var file in files) managed.Remove(file);
                 foreach (var key in registry) Registry.CurrentUser.DeleteSubKeyTree(key, false);
-                var start = new ProcessStartInfo(package) { UseShellExecute = true };
                 int? installerExitCode = null;
                 using (var installer = Process.Start(start))
                 {
-                    if (installer != null)
-                    {
-                        installer.WaitForExit();
-                        installerExitCode = installer.ExitCode;
-                    }
+                    if (installer == null) throw new InvalidOperationException("Rhino 설치 엔진을 시작하지 못했습니다: " + engine);
+                    installer.WaitForExit();
+                    installerExitCode = installer.ExitCode;
                 }
                 // The installed new payload is authoritative, including nonzero engine exits.
                 InstallationVerification.WaitForComplete(installerExitCode,
@@ -226,7 +226,7 @@ namespace BKID.AutoCropSixView.Setup
             }
             catch (Exception original)
             {
-                throw new InvalidOperationException(original.Message + "\r\n이전 버전은 백업하거나 자동 복원하지 않습니다. 새 버전 설치를 다시 진행해 주세요.", original);
+                throw new InvalidOperationException("실행한 Rhino 설치 엔진: " + engine + "\r\n" + original.Message + "\r\n이전 버전은 백업하거나 자동 복원하지 않습니다. 새 버전 설치를 다시 진행해 주세요.", original);
             }
         }
 

@@ -133,5 +133,37 @@ try
            "SixView registry identity must differ from AutoCrop.");
     Console.WriteLine("PASS: actual SixView installer discovery excludes original AutoCrop; original RHP/RUI survive removal.");
 
+    // Reproduce a hostile .rhi default handler: select only a McNeel engine.
+    Assert(!InstallerEngineLaunch.IsEngineIdentity("/fake/7z.exe", "Igor Pavlov", "7-Zip"), "7-Zip must not be accepted as the Rhino engine.");
+    Assert(!InstallerEngineLaunch.IsEngineIdentity("/fake/rhiexec.exe", "Other company", "Rhino"), "Filename alone cannot identify the engine.");
+    string selectedEngine = InstallerEngineLaunch.SelectEngine(new[] { "/fake/7z.exe", "/fake/rhiexec.exe" },
+        candidate => InstallerEngineLaunch.IsEngineIdentity(candidate, "Robert McNeel & Associates", "Rhino Installer Engine"));
+    Assert(selectedEngine == "/fake/rhiexec.exe", "Wrong RHI association affected engine selection.");
+    Assert(InstallerEngineLaunch.ExecutableFromCommand("\"C:\\Program Files\\McNeel\\rhiexec.exe\" \"%1\"") == "C:\\Program Files\\McNeel\\rhiexec.exe", "Registered command parsing failed.");
+    bool missingEngine = false;
+    try { InstallerEngineLaunch.SelectEngine(new[] { "/fake/7z.exe" }, candidate => false); }
+    catch (FileNotFoundException) { missingEngine = true; }
+    Assert(missingEngine && File.Exists(originalPlugin), "Missing engine must stop without changing installed files.");
+    if (!OperatingSystem.IsWindows())
+    {
+        string launchFolder = Path.Combine(root, "엔진 경로 '테스트'");
+        Directory.CreateDirectory(launchFolder);
+        string fakeEngine = Path.Combine(launchFolder, "rhiexec.exe");
+        string fakePackage = Path.Combine(launchFolder, "설치 파일 '한글'.rhi");
+        File.WriteAllText(fakePackage, "RHI-placeholder");
+        File.WriteAllText(fakeEngine, "#!/bin/sh\nprintf '%s' \"$1\" > received-package.txt\nexit 37\n");
+        File.SetUnixFileMode(fakeEngine, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+        var direct = InstallerEngineLaunch.CreateStartInfo(fakeEngine, fakePackage);
+        Assert(!direct.UseShellExecute && direct.FileName == fakeEngine, "Must launch engine directly, never shell-open the RHI.");
+        using (var process = System.Diagnostics.Process.Start(direct)!)
+        {
+            process.WaitForExit();
+            Assert(process.ExitCode == 37, "Exit status must come from the explicitly selected engine.");
+        }
+        Assert(File.ReadAllText(Path.Combine(launchFolder, "received-package.txt")) == fakePackage,
+               "Unicode/space/quoted RHI path must arrive as exactly one argument.");
+    }
+    Console.WriteLine("PASS: 7-Zip rejected, McNeel engine selected, missing engine stops, direct process receives exact RHI path without shell association.");
+
 }
 finally { Directory.Delete(root, true); }

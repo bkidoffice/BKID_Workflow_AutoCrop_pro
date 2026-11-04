@@ -51,7 +51,7 @@ class NativeToolbarTests(unittest.TestCase):
                                     for r,g,b,a in pixels), 'Button must retain antialiased dark outline pixels')
 
     def test_rhi_contains_matching_named_plugin_and_toolbar(self):
-        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_SixView_3.1.4.rhi') as archive:
+        with zipfile.ZipFile(ROOT / 'installers/BKID_AutoCrop_SixView_3.1.5.rhi') as archive:
             self.assertIsNone(archive.testzip())
             self.assertEqual(set(archive.namelist()), {'BKID.AutoCropSixView.rhp', 'BKID.AutoCropSixView.rui'})
             self.assertTrue(archive.read('BKID.AutoCropSixView.rhp').startswith(b'MZ'))
